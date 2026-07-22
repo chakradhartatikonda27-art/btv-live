@@ -1,0 +1,214 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  SUPER_ADMIN
+  EDITOR
+  GUEST
+}
+
+enum InterviewStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum SubmissionStatus {
+  PENDING
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+}
+
+enum EventType {
+  CONFERENCE
+  AWARD_CEREMONY
+  LIVE_STREAM
+  SUMMIT
+  WORKSHOP
+}
+
+enum EventStatus {
+  UPCOMING
+  LIVE
+  PAST
+}
+
+enum CategorySlug {
+  BUSINESS_LEADERS
+  DOCTORS_HEALTHCARE
+  CAs_LEGAL
+  INNOVATORS_TECH
+  CELEBRITIES
+  SPORTS_EVENTS
+  REAL_ESTATE
+  EDUCATION
+}
+
+model User {
+  id           String       @id @default(cuid())
+  email        String       @unique
+  name         String?
+  avatarUrl    String?
+  role         Role         @default(GUEST)
+  passwordHash String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  submissions  Submission[]
+  sessions     Session[]
+  @@map("users")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@map("sessions")
+}
+
+model Category {
+  id          String       @id @default(cuid())
+  name        String
+  slug        CategorySlug @unique
+  description String?
+  iconUrl     String?
+  coverImage  String?
+  sortOrder   Int          @default(0)
+  createdAt   DateTime     @default(now())
+  interviews  Interview[]
+  @@map("categories")
+}
+
+model Interview {
+  id             String          @id @default(cuid())
+  title          String
+  slug           String          @unique
+  summary        String?         @db.Text
+  transcript     String?         @db.Text
+  thumbnailUrl   String?
+  videoUrl       String
+  youtubeVideoId String?
+  duration       Int?
+  viewCount      Int             @default(0)
+  featured       Boolean         @default(false)
+  status         InterviewStatus @default(DRAFT)
+  publishedAt    DateTime?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  categoryId     String
+  category       Category        @relation(fields: [categoryId], references: [id])
+  guestId        String
+  guest          Guest           @relation(fields: [guestId], references: [id])
+  tags           Tag[]           @relation("InterviewTags")
+  @@index([status, publishedAt])
+  @@index([categoryId])
+  @@index([featured])
+  @@map("interviews")
+}
+
+model Guest {
+  id          String      @id @default(cuid())
+  fullName    String
+  slug        String      @unique
+  headline    String?
+  bio         String?     @db.Text
+  company     String?
+  industry    String?
+  location    String?
+  avatarUrl   String?
+  linkedinUrl String?
+  websiteUrl  String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  interviews  Interview[]
+  @@map("guests")
+}
+
+model Tag {
+  id         String      @id @default(cuid())
+  name       String      @unique
+  slug       String      @unique
+  interviews Interview[] @relation("InterviewTags")
+  @@map("tags")
+}
+
+model Event {
+  id            String       @id @default(cuid())
+  title         String
+  slug          String       @unique
+  description   String?      @db.Text
+  type          EventType
+  status        EventStatus  @default(UPCOMING)
+  coverImageUrl String?
+  venue         String?
+  city          String?
+  liveStreamUrl String?
+  scheduledAt   DateTime
+  endedAt       DateTime?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  gallery       EventMedia[]
+  @@index([status, scheduledAt])
+  @@map("events")
+}
+
+model EventMedia {
+  id        String   @id @default(cuid())
+  eventId   String
+  mediaUrl  String
+  mediaType String
+  caption   String?
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  @@map("event_media")
+}
+
+model Submission {
+  id           String           @id @default(cuid())
+  fullName     String
+  email        String
+  phone        String?
+  profession   String
+  company      String?
+  city         String?
+  industry     String?
+  achievements String           @db.Text
+  legacyStory  String           @db.Text
+  videoLink    String?
+  mediaUrls    String[]
+  status       SubmissionStatus @default(PENDING)
+  reviewNotes  String?          @db.Text
+  submittedAt  DateTime         @default(now())
+  reviewedAt   DateTime?
+  userId       String?
+  user         User?            @relation(fields: [userId], references: [id])
+  @@index([status, submittedAt])
+  @@map("submissions")
+}
+
+model Subscriber {
+  id          String    @id @default(cuid())
+  email       String    @unique
+  confirmedAt DateTime?
+  createdAt   DateTime  @default(now())
+  @@map("subscribers")
+}
+
+model SiteStat {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     Int
+  updatedAt DateTime @updatedAt
+  @@map("site_stats")
+}
