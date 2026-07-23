@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Radio } from "lucide-react";
+import Image from "next/image";
 
 const FOOTER_LINKS = {
   Platform: [
@@ -32,21 +32,14 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2.5 mb-4">
-              <div className="w-8 h-8 bg-gold-gradient rounded-sm flex items-center justify-center">
-                <Radio size={16} className="text-obsidian-950" />
-              </div>
-              <div className="flex flex-col leading-none">
-                <span
-                  className="font-bold text-xl text-white tracking-tight"
-                  style={{ fontFamily: "var(--font-display)" }}
-                >
-                  BTV
-                </span>
-                <span className="text-gold-500 font-mono text-[9px] tracking-[0.25em] uppercase -mt-0.5">
-                  LIVE
-                </span>
-              </div>
-            </Link>
+            <Image
+              src="/btv-logo.jpg"
+              alt="BTV LIVE"
+              width={56}
+              height={56}
+              className="rounded-sm object-contain"
+            />
+          </Link>
             <p className="text-platinum-400 text-sm leading-relaxed max-w-xs mb-6">
               The Trusted Business Channel. Inspiring Success. Creating Legacy.
               India's premium media platform for entrepreneurs and leaders.
