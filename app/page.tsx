@@ -1,65 +1,112 @@
-import Image from "next/image";
+import { prisma } from "@/lib/prisma";
+import HeroBanner from "@/components/home/HeroBanner";
+import CategoryCarousel from "@/components/home/CategoryCarousel";
+import FeaturedStories from "@/components/home/FeaturedStories";
+import LiveEventsBanner from "@/components/home/LiveEventsBanner";
+import ImpactCounter from "@/components/home/ImpactCounter";
+import NominateCTA from "@/components/home/NominateCTA";
+import NewsletterBar from "@/components/home/NewsletterBar";
 
-export default function Home() {
+export const revalidate = 60;
+
+async function getFeaturedInterview() {
+  return prisma.interview.findFirst({
+    where: { status: "PUBLISHED", featured: true },
+    include: { guest: true, category: true },
+    orderBy: { publishedAt: "desc" },
+  });
+}
+
+async function getFeaturedStories() {
+  return prisma.interview.findMany({
+    where: { status: "PUBLISHED" },
+    include: { guest: true, category: true, tags: true },
+    orderBy: [{ featured: "desc" }, { publishedAt: "desc" }],
+    take: 8,
+  });
+}
+
+async function getUpcomingEvents() {
+  return prisma.event.findMany({
+    where: { status: { in: ["UPCOMING", "LIVE"] } },
+    orderBy: { scheduledAt: "asc" },
+    take: 3,
+  });
+}
+
+async function getSiteStats() {
+  const stats = await prisma.siteStat.findMany();
+  return Object.fromEntries(stats.map((s) => [s.key, s.value]));
+}
+
+async function getCategories() {
+  return prisma.category.findMany({
+    orderBy: { sortOrder: "asc" },
+    include: { _count: { select: { interviews: true } } },
+  });
+}
+
+export default async function HomePage() {
+  const [featuredInterview, stories, events, stats, categories] =
+    await Promise.all([
+      getFeaturedInterview(),
+      getFeaturedStories(),
+      getUpcomingEvents(),
+      getSiteStats(),
+      getCategories(),
+    ]);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <main className="min-h-screen" style={{ background: "#08090B" }}>
+      <HeroBanner interview={featuredInterview} />
+
+      {events.length > 0 && <LiveEventsBanner events={events} />}
+
+      <section className="py-16 px-4 md:px-8 max-w-7xl mx-auto">
+        <div className="flex items-baseline justify-between mb-10">
+          <div>
+            <p className="text-gold-500 font-mono text-xs tracking-[0.2em] uppercase mb-2">
+              Explore by Industry
+            </p>
+            <h2
+              className="text-3xl md:text-4xl text-platinum-50"
+              style={{ fontFamily: "var(--font-display)" }}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
+              Every Field. Every Story.
+            </h2>
+          </div>
+          <a href="/shows" className="text-sm text-gold-400 hover:text-gold-300 transition-colors hidden md:block">
+            View All Shows
           </a>
         </div>
-      </main>
-    </div>
+        <CategoryCarousel categories={categories} />
+      </section>
+
+      <section className="py-16 px-4 md:px-8 max-w-7xl mx-auto">
+        <div className="flex items-baseline justify-between mb-10">
+          <div>
+            <p className="text-gold-500 font-mono text-xs tracking-[0.2em] uppercase mb-2">
+              Zero to Hero
+            </p>
+            <h2
+              className="text-3xl md:text-4xl text-platinum-50"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              Featured Stories
+            </h2>
+          </div>
+          <a href="/shows" className="text-sm text-gold-400 hover:text-gold-300 transition-colors hidden md:block">
+            All Interviews
+          </a>
+        </div>
+        <FeaturedStories stories={stories} />
+      </section>
+
+      <ImpactCounter stats={stats} />
+
+      <NominateCTA />
+
+      <NewsletterBar />
+    </main>
   );
 }
