@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 
 export const revalidate = 60;
 
-export default async function EventPage({ params }) {
+export default async function EventPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
   const event = await prisma.event.findUnique({

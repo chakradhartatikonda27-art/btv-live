@@ -9,7 +9,7 @@ export const metadata = {
   description: 'BTV LIVE events, award ceremonies, conferences and live coverage.',
 };
 
-const TYPE_LABELS = {
+const TYPE_LABELS: Record<string, string> = {
   CONFERENCE: 'Conference',
   AWARD_CEREMONY: 'Award Ceremony',
   LIVE_STREAM: 'Live Stream',
@@ -80,7 +80,7 @@ export default async function EventsPage() {
   );
 }
 
-function EventCard({ event }) {
+function EventCard({ event }: { event: any }) {
   const isLive = event.status === 'LIVE';
   const isUpcoming = event.status === 'UPCOMING';
 

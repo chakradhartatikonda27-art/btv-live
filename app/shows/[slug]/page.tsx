@@ -4,7 +4,7 @@ import InterviewCard from '@/components/interviews/InterviewCard';
 
 export const revalidate = 300;
 
-export default async function InterviewPage({ params }) {
+export default async function InterviewPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
   const interview = await prisma.interview.findUnique({
@@ -30,7 +30,7 @@ export default async function InterviewPage({ params }) {
     orderBy: { publishedAt: 'desc' },
   });
 
-  function formatDuration(seconds) {
+  function formatDuration(seconds: number | null) {
     if (!seconds) return '';
     const h = Math.floor(seconds / 3600);
     const m = Math.floor((seconds % 3600) / 60);

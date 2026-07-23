@@ -16,9 +16,9 @@ export default function AddTeamMemberPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [states, setStates] = useState([]);
-  const [districts, setDistricts] = useState([]);
-  const [cities, setCities] = useState([]);
+  const [states, setStates] = useState<{id:string,name:string}[]>([]);
+  const [districts, setDistricts] = useState<{id:string,name:string}[]>([]);
+  const [cities, setCities] = useState<{id:string,name:string}[]>([]);
 
   const [form, setForm] = useState({
     fullName: '',
@@ -57,11 +57,11 @@ export default function AddTeamMemberPage() {
     }
   }, [form.districtId]);
 
-  function update(field, value) {
+  function update(field: string, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
   }
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     setError('');
@@ -91,7 +91,7 @@ export default function AddTeamMemberPage() {
     color: '#EDEEF0',
     fontSize: '14px',
     outline: 'none',
-    boxSizing: 'border-box',
+    boxSizing: 'border-box' as const,
   };
 
   const labelStyle = {

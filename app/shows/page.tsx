@@ -20,7 +20,7 @@ const CATEGORY_LABELS = {
   EDUCATION: 'Education',
 };
 
-export default async function ShowsPage({ searchParams }) {
+export default async function ShowsPage({ searchParams }: { searchParams: Promise<{ category?: string; sort?: string }> }) {
   const params = await searchParams;
   const category = params.category;
   const sort = params.sort ?? 'latest';
@@ -28,7 +28,7 @@ export default async function ShowsPage({ searchParams }) {
   const interviews = await prisma.interview.findMany({
     where: {
       status: 'PUBLISHED',
-      ...(category ? { category: { slug: category } } : {}),
+      ...(category ? { category: { slug: category as any } } : {}),
     },
     include: { guest: true, category: true, tags: true },
     orderBy: sort === 'popular' ? { viewCount: 'desc' } : { publishedAt: 'desc' },

@@ -29,7 +29,7 @@ const STEPS = [
 export default function ApplyPage() {
   const [step, setStep] = useState(1);
   const [status, setStatus] = useState('idle');
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const fileRef = useRef(null);
 
   const [form, setForm] = useState({
@@ -39,13 +39,13 @@ export default function ApplyPage() {
     mediaFiles: [], consent: false,
   });
 
-  function update(field, value) {
+  function update(field: string, value: unknown) {
     setForm((prev) => ({ ...prev, [field]: value }));
-    setErrors((prev) => ({ ...prev, [field]: undefined }));
+    setErrors((prev) => { const next = { ...prev }; delete next[field]; return next; });
   }
 
-  function validateStep(current) {
-    const e = {};
+  function validateStep(current: number) {
+    const e: Record<string, string> = {};
     if (current === 1) {
       if (!form.fullName.trim()) e.fullName = 'Name is required';
       if (!form.email.includes('@')) e.email = 'Valid email required';
@@ -330,7 +330,7 @@ export default function ApplyPage() {
   );
 }
 
-function Field({ label, required, hint, error, children }) {
+function Field({ label, required, hint, error, children }: { label: string; required?: boolean; hint?: string; error?: string; children: React.ReactNode }) {
   return (
     <div>
       <label className='block mb-1.5'>
@@ -346,7 +346,7 @@ function Field({ label, required, hint, error, children }) {
   );
 }
 
-function SummaryRow({ label, value }) {
+function SummaryRow({ label, value }: { label: string; value: string }) {
   return (
     <div className='flex justify-between text-xs'>
       <span className='text-platinum-500'>{label}</span>
