@@ -212,3 +212,62 @@ model SiteStat {
   updatedAt DateTime @updatedAt
   @@map("site_stats")
 }
+
+enum TeamRole {
+  SUPER_ADMIN
+  STATE_HEAD
+  DISTRICT_HEAD
+  CITY_REPORTER
+  CAMERA_PERSON
+  VIEWER
+}
+
+model State {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  createdAt DateTime   @default(now())
+  districts District[]
+  members   TeamMember[]
+  @@map("states")
+}
+
+model District {
+  id        String     @id @default(cuid())
+  name      String
+  stateId   String
+  state     State      @relation(fields: [stateId], references: [id])
+  createdAt DateTime   @default(now())
+  cities    City[]
+  members   TeamMember[]
+  @@map("districts")
+}
+
+model City {
+  id         String     @id @default(cuid())
+  name       String
+  districtId String
+  district   District   @relation(fields: [districtId], references: [id])
+  createdAt  DateTime   @default(now())
+  members    TeamMember[]
+  @@map("cities")
+}
+
+model TeamMember {
+  id           String    @id @default(cuid())
+  fullName     String
+  email        String    @unique
+  passwordHash String
+  role         TeamRole  @default(VIEWER)
+  phone        String?
+  avatarUrl    String?
+  isActive     Boolean   @default(true)
+  stateId      String?
+  districtId   String?
+  cityId       String?
+  state        State?    @relation(fields: [stateId], references: [id])
+  district     District? @relation(fields: [districtId], references: [id])
+  city         City?     @relation(fields: [cityId], references: [id])
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  @@map("team_members")
+}

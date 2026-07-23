@@ -1,11 +1,12 @@
 import Link from 'next/link';
-import { LayoutDashboard, Video, FileText, Calendar } from 'lucide-react';
+import { LayoutDashboard, Video, FileText, Calendar, Users } from 'lucide-react';
 
 const NAV_ITEMS = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/interviews', label: 'Interviews', icon: Video },
   { href: '/admin/submissions', label: 'Submissions', icon: FileText },
   { href: '/admin/events', label: 'Events', icon: Calendar },
+  { href: '/admin/team', label: 'Team', icon: Users },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
