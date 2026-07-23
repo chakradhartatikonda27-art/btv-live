@@ -8,50 +8,44 @@ export default async function AdminInterviewsPage() {
   });
 
   return (
-    <div className='p-8'>
-      <div className='flex items-center justify-between mb-8'>
-        <div>
-          <p className='text-gold-500 font-mono text-xs tracking-[0.2em] uppercase mb-1'>Admin</p>
-          <h1 className='text-3xl text-platinum-50' style={{ fontFamily: 'var(--font-display)' }}>
-            Interviews
-          </h1>
-        </div>
+    <div style={{ padding: '32px' }}>
+      <div style={{ marginBottom: '32px' }}>
+        <p style={{ color: '#CC0000', fontFamily: 'monospace', fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase', margin: '0 0 4px' }}>Content</p>
+        <h1 style={{ color: '#1A1A2E', fontSize: '28px', fontFamily: 'Georgia, serif', margin: 0 }}>Interviews</h1>
       </div>
 
-      <div className='rounded-xl overflow-hidden' style={{ background: '#141619', border: '1px solid #252830' }}>
-        <div className='px-6 py-4 border-b' style={{ borderColor: '#252830' }}>
-          <p className='text-platinum-400 text-sm'>{interviews.length} total interviews</p>
+      <div style={{ borderRadius: '12px', overflow: 'hidden', background: '#FFFFFF', border: '1px solid #E5E7EB', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }}>
+        <div style={{ padding: '16px 24px', borderBottom: '1px solid #E5E7EB' }}>
+          <p style={{ color: '#6B7280', fontSize: '14px', margin: 0 }}>{interviews.length} total interviews</p>
         </div>
 
         {interviews.length === 0 ? (
-          <div className='px-6 py-16 text-center'>
-            <p className='text-platinum-400 text-sm'>No interviews yet.</p>
+          <div style={{ padding: '64px 24px', textAlign: 'center' }}>
+            <p style={{ color: '#9CA3AF', fontSize: '14px', margin: 0 }}>No interviews yet.</p>
           </div>
         ) : (
-          <div className='divide-y' style={{ borderColor: '#252830' }}>
-            {interviews.map((interview) => (
-              <div key={interview.id} className='px-6 py-4 flex items-center justify-between'>
-                <div className='flex-1 min-w-0'>
-                  <p className='text-platinum-100 text-sm font-medium truncate'>{interview.title}</p>
-                  <div className='flex items-center gap-3 mt-0.5'>
-                    <p className='text-platinum-400 text-xs'>{interview.guest.fullName}</p>
-                    <span className='text-platinum-600'>·</span>
-                    <p className='text-platinum-400 text-xs'>{interview.category.name}</p>
-                    <span className='text-platinum-600'>·</span>
-                    <p className='text-platinum-500 text-xs font-mono'>{interview.viewCount} views</p>
+          <div>
+            {interviews.map((interview, i) => (
+              <div key={interview.id} style={{ padding: '16px 24px', borderBottom: i < interviews.length - 1 ? '1px solid #F3F4F6' : 'none', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{ color: '#1A1A2E', fontSize: '14px', fontWeight: '500', margin: '0 0 2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{interview.title}</p>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <p style={{ color: '#6B7280', fontSize: '12px', margin: 0 }}>{interview.guest.fullName}</p>
+                    <span style={{ color: '#D1D5DB' }}>·</span>
+                    <p style={{ color: '#6B7280', fontSize: '12px', margin: 0 }}>{interview.category.name}</p>
+                    <span style={{ color: '#D1D5DB' }}>·</span>
+                    <p style={{ color: '#9CA3AF', fontSize: '12px', margin: 0, fontFamily: 'monospace' }}>{interview.viewCount} views</p>
                   </div>
                 </div>
-                <div className='flex items-center gap-3 ml-4'>
-                  <span className='text-xs px-2.5 py-1 rounded-full font-medium' style={{
-                    background: interview.status === 'PUBLISHED' ? 'rgba(34,197,94,0.1)' : interview.status === 'DRAFT' ? 'rgba(212,168,50,0.1)' : 'rgba(100,116,139,0.1)',
-                    color: interview.status === 'PUBLISHED' ? '#22c55e' : interview.status === 'DRAFT' ? '#D4A832' : '#64748b',
-                    border: interview.status === 'PUBLISHED' ? '1px solid rgba(34,197,94,0.3)' : '1px solid rgba(212,168,50,0.3)',
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginLeft: '16px' }}>
+                  <span style={{
+                    fontSize: '11px', padding: '3px 10px', borderRadius: '999px', fontWeight: '600',
+                    background: interview.status === 'PUBLISHED' ? '#DCFCE7' : interview.status === 'DRAFT' ? '#FEF3C7' : '#F3F4F6',
+                    color: interview.status === 'PUBLISHED' ? '#16A34A' : interview.status === 'DRAFT' ? '#D97706' : '#6B7280',
                   }}>
                     {interview.status}
                   </span>
-                  <a href={'/shows/' + interview.slug} target='_blank' className='text-platinum-400 text-xs hover:text-gold-400 transition-colors'>
-                    View
-                  </a>
+                  <a href={'/shows/' + interview.slug} target='_blank' style={{ color: '#CC0000', fontSize: '12px', textDecoration: 'none', fontWeight: '500' }}>View</a>
                 </div>
               </div>
             ))}
