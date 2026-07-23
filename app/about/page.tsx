@@ -33,7 +33,7 @@ export default function AboutPage() {
 
         <div className='max-w-3xl mb-20 pt-6'>
           <p className='text-gold-500 font-mono text-xs tracking-[0.2em] uppercase mb-4'>Our Mission</p>
-          <h1 className='text-5xl md:text-7xl text-white mb-8 leading-tight' style={{ fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>
+          <h1 className='text-4xl md:text-7xl text-white mb-6 leading-tight' style={{ fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>
             Inspiring Success.
             <br />
             <span style={{ color: '#D4A832' }}>Creating Legacy.</span>
@@ -49,7 +49,7 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <div className='grid grid-cols-2 md:grid-cols-4 gap-6 mb-20'>
+        <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 md:mb-20'>
           {STATS.map((stat) => (
             <div key={stat.label} className='text-center p-6 rounded-xl' style={{ background: '#141619', border: '1px solid #252830' }}>
               <p className='text-4xl font-bold mb-2' style={{ fontFamily: 'var(--font-display)', color: '#E8C35A' }}>
@@ -65,7 +65,7 @@ export default function AboutPage() {
           <h2 className='text-3xl md:text-4xl text-platinum-50 mb-10' style={{ fontFamily: 'var(--font-display)' }}>
             Our Core Values
           </h2>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
             {VALUES.map((value, i) => (
               <div key={value.title} className='p-6 rounded-xl' style={{ background: '#141619', border: '1px solid #252830' }}>
                 <div className='flex items-center gap-3 mb-3'>
@@ -87,7 +87,7 @@ export default function AboutPage() {
           <h2 className='text-3xl md:text-4xl text-platinum-50 mb-10' style={{ fontFamily: 'var(--font-display)' }}>
             Our Teams
           </h2>
-          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6'>
+          <div className='grid grid-cols-2 lg:grid-cols-4 gap-4'>
             {TEAM.map((member) => (
               <div key={member.name} className='p-6 rounded-xl text-center' style={{ background: '#141619', border: '1px solid #252830' }}>
                 <div className='w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4' style={{ background: 'rgba(212,168,50,0.1)', border: '2px solid rgba(212,168,50,0.3)', color: '#D4A832', fontFamily: 'var(--font-display)' }}>

@@ -11,8 +11,8 @@ const NAV_ITEMS = [
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', background: '#08090B' }}>
-      <aside style={{ width: '240px', flexShrink: 0, borderRight: '1px solid #1C1E23', background: '#0D0F12', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', background: '#08090B', flexDirection: 'row' }}>
+      <aside style={{ width: '200px', flexShrink: 0, borderRight: '1px solid #1C1E23', background: '#0D0F12', display: 'flex', flexDirection: 'column', minWidth: '160px' }}>
         <div style={{ padding: '24px', borderBottom: '1px solid #1C1E23' }}>
           <Link href='/' style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
             <div style={{ width: '28px', height: '28px', background: 'linear-gradient(135deg, #D4A832, #F5D98A)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

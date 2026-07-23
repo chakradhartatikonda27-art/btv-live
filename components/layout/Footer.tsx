@@ -28,7 +28,7 @@ export default function Footer() {
       <div className="h-[1px] bg-gold-gradient opacity-40" />
 
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-8 md:gap-10">
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2.5 mb-4">
@@ -75,7 +75,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 pt-8 border-t border-obsidian-700 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-8 md:mt-12 pt-6 md:pt-8 border-t border-obsidian-700 flex flex-col md:flex-row items-center justify-between gap-3 md:gap-4">
           <p className="text-platinum-500 text-xs">
             © {new Date().getFullYear()} BTV LIVE. All rights reserved.
           </p>

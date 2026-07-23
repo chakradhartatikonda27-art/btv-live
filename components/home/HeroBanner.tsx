@@ -1,55 +1,41 @@
-"use client";
+'use client';
 
-import { motion, AnimatePresence } from "framer-motion";
-import { Play, ChevronDown, Award } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 const HERO_SLIDES = [
   {
     id: 1,
-    youtubeVideoId: "dQw4w9WgXcQ",
-    title: "From Zero to ₹500 Crore Empire",
-    guest: "Rajiv Nair",
-    designation: "Founder & Chairman, NairTech Industries",
-    category: "Business Leaders",
-    watchTime: "38 min",
-    bg: "linear-gradient(135deg, #0D0F12 0%, #111A30 50%, #0D0F12 100%)",
+    youtubeVideoId: 'dQw4w9WgXcQ',
+    title: 'From Zero to 500 Crore Empire',
+    guest: 'Rajiv Nair',
+    designation: 'Founder & Chairman, NairTech Industries',
+    category: 'Business Leaders',
+    watchTime: '38 min',
+    bg: 'linear-gradient(135deg, #0D0F12 0%, #111A30 50%, #0D0F12 100%)',
   },
   {
     id: 2,
-    youtubeVideoId: "dQw4w9WgXcQ",
-    title: "Healing Thousands, Building a Healthcare Legacy",
-    guest: "Dr. Priya Venkatesh",
-    designation: "Director, Venkatesh Multispecialty Hospitals",
-    category: "Doctors & Healthcare",
-    watchTime: "44 min",
-    bg: "linear-gradient(135deg, #08090B 0%, #0C1222 50%, #08090B 100%)",
+    youtubeVideoId: 'dQw4w9WgXcQ',
+    title: 'Healing Thousands, Building a Healthcare Legacy',
+    guest: 'Dr. Priya Venkatesh',
+    designation: 'Director, Venkatesh Multispecialty Hospitals',
+    category: 'Doctors & Healthcare',
+    watchTime: '44 min',
+    bg: 'linear-gradient(135deg, #08090B 0%, #0C1222 50%, #08090B 100%)',
   },
   {
     id: 3,
-    youtubeVideoId: "dQw4w9WgXcQ",
-    title: "The CA Who Built a ₹200 Crore Consulting Firm",
-    guest: "Vikram Mehta",
-    designation: "Managing Partner, Mehta & Associates",
-    category: "CAs & Legal",
-    watchTime: "52 min",
-    bg: "linear-gradient(135deg, #0D0F12 0%, #1C1E23 50%, #0D0F12 100%)",
+    youtubeVideoId: 'dQw4w9WgXcQ',
+    title: 'The CA Who Built a 200 Crore Consulting Firm',
+    guest: 'Vikram Mehta',
+    designation: 'Managing Partner, Mehta and Associates',
+    category: 'CAs and Legal',
+    watchTime: '52 min',
+    bg: 'linear-gradient(135deg, #0D0F12 0%, #1C1E23 50%, #0D0F12 100%)',
   },
 ];
 
-interface HeroBannerProps {
-  interview?: {
-    id: string;
-    title: string;
-    slug: string;
-    youtubeVideoId: string | null;
-    duration: number | null;
-    guest: { fullName: string; headline: string | null };
-    category: { name: string };
-  } | null;
-}
-
-export default function HeroBanner({ interview }: HeroBannerProps) {
+export default function HeroBanner({ interview }) {
   const [activeSlide, setActiveSlide] = useState(0);
   const [videoOpen, setVideoOpen] = useState(false);
 
@@ -64,205 +50,100 @@ export default function HeroBanner({ interview }: HeroBannerProps) {
   const current = HERO_SLIDES[activeSlide];
 
   return (
-    <section className="relative h-[90vh] min-h-[600px] max-h-[900px] overflow-hidden">
+    <section style={{ position: 'relative', minHeight: '85vh', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', zIndex: 1 }}>
       {/* Background */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeSlide}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.2 }}
-          className="absolute inset-0"
-          style={{ background: current.bg }}
-        />
-      </AnimatePresence>
+      <div style={{ position: 'absolute', inset: 0, background: current.bg, transition: 'background 1s ease' }} />
 
-      {/* Grid pattern overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: "linear-gradient(rgba(212,168,50,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(212,168,50,0.3) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-        }}
-      />
+      {/* Grid overlay */}
+      <div style={{
+        position: 'absolute', inset: 0, opacity: 0.03,
+        backgroundImage: 'linear-gradient(rgba(212,168,50,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(212,168,50,0.3) 1px, transparent 1px)',
+        backgroundSize: '60px 60px',
+      }} />
 
       {/* Gold top line */}
-      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gold-gradient z-10" />
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(135deg, #D4A832, #F5D98A, #B8891A)', zIndex: 10 }} />
 
       {/* Ambient glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: "radial-gradient(ellipse at 30% 60%, rgba(212,168,50,0.08) 0%, transparent 60%)",
-        }}
-      />
+      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 30% 60%, rgba(212,168,50,0.08) 0%, transparent 60%)', pointerEvents: 'none' }} />
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col justify-center pt-16 pb-24 px-6 md:px-16 max-w-7xl mx-auto">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeSlide}
-            initial={{ opacity: 0, y: 32 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="max-w-3xl"
+      <div style={{ position: 'relative', zIndex: 10, padding: '80px 20px 40px', maxWidth: '800px' }}>
+        {/* Category badge */}
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '16px', padding: '4px 12px', borderRadius: '999px', background: 'rgba(212,168,50,0.1)', border: '1px solid rgba(212,168,50,0.3)' }}>
+          <span style={{ color: '#D4A832', fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase', fontFamily: 'monospace' }}>
+            {current.category}
+          </span>
+        </div>
+
+        {/* Headline */}
+        <h1 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(28px, 8vw, 72px)', color: 'white', lineHeight: 1.1, marginBottom: '16px', letterSpacing: '-0.02em' }}>
+          {current.title}
+        </h1>
+
+        {/* Guest */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px', flexWrap: 'wrap' }}>
+          <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'rgba(212,168,50,0.1)', border: '1px solid rgba(212,168,50,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#D4A832', fontWeight: 'bold', fontFamily: 'Georgia, serif', flexShrink: 0 }}>
+            {current.guest.charAt(0)}
+          </div>
+          <div>
+            <p style={{ color: '#EDEEF0', fontWeight: '600', margin: 0, fontSize: '14px' }}>{current.guest}</p>
+            <p style={{ color: '#9A9DA5', margin: 0, fontSize: '12px' }}>{current.designation}</p>
+          </div>
+          <span style={{ color: '#9A9DA5', fontSize: '12px', fontFamily: 'monospace' }}>{current.watchTime}</span>
+        </div>
+
+        {/* CTAs */}
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          <button
+            onClick={() => setVideoOpen(true)}
+            style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#D4A832', color: '#08090B', border: 'none', borderRadius: '999px', padding: '12px 24px', fontWeight: '600', fontSize: '14px', cursor: 'pointer' }}
           >
-            {/* Category badge */}
-            <motion.div
-              initial={{ opacity: 0, x: -16 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.15 }}
-              className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full border"
-              style={{
-                background: "rgba(212,168,50,0.1)",
-                borderColor: "rgba(212,168,50,0.3)",
-              }}
-            >
-              <Award size={12} className="text-gold-400" />
-              <span className="text-gold-400 text-xs tracking-widest uppercase font-mono">
-                {current.category}
-              </span>
-            </motion.div>
-
-            {/* Headline */}
-            <h1
-              className="text-5xl md:text-7xl text-white mb-6 leading-tight"
-              style={{
-                fontFamily: "var(--font-display)",
-                letterSpacing: "-0.02em",
-                textShadow: "0 2px 20px rgba(0,0,0,0.8)",
-              }}
-            >
-              {current.title}
-            </h1>
-
-            {/* Guest info */}
-            <div className="flex items-center gap-3 mb-10">
-              <div
-                className="w-10 h-10 rounded-full border flex items-center justify-center text-gold-500 font-bold text-sm"
-                style={{
-                  background: "rgba(212,168,50,0.1)",
-                  borderColor: "rgba(212,168,50,0.4)",
-                  fontFamily: "var(--font-display)",
-                }}
-              >
-                {current.guest.charAt(0)}
-              </div>
-              <div>
-                <p className="text-platinum-50 font-semibold text-base leading-none mb-1">
-                  {current.guest}
-                </p>
-                <p className="text-platinum-400 text-sm">{current.designation}</p>
-              </div>
-              <span className="ml-4 text-platinum-400 text-xs font-mono border-l border-obsidian-600 pl-4">
-                {current.watchTime}
-              </span>
-            </div>
-
-            {/* CTAs */}
-            <div className="flex items-center gap-4 flex-wrap">
-              <motion.button
-                onClick={() => setVideoOpen(true)}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className="group flex items-center gap-3 font-semibold px-7 py-3.5 rounded-full transition-colors duration-200 shadow-gold"
-                style={{ background: "#D4A832", color: "#08090B" }}
-              >
-                <Play size={18} fill="currentColor" />
-                Watch Now
-              </motion.button>
-
-              <motion.a
-                href="/shows"
-                whileHover={{ scale: 1.02 }}
-                className="flex items-center gap-2 font-medium transition-colors text-sm px-6 py-3.5 rounded-full"
-                style={{
-                  color: "#EDEEF0",
-                  border: "1px solid rgba(255,255,255,0.15)",
-                  background: "rgba(255,255,255,0.05)",
-                }}
-              >
-                Explore All Interviews
-              </motion.a>
-            </div>
-          </motion.div>
-        </AnimatePresence>
+            Watch Now
+          </button>
+          <a href='/shows' style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#EDEEF0', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '999px', padding: '12px 24px', fontWeight: '500', fontSize: '14px', textDecoration: 'none', background: 'rgba(255,255,255,0.05)' }}>
+            All Interviews
+          </a>
+        </div>
 
         {/* Slide indicators */}
-        <div className="flex gap-2 mt-12">
+        <div style={{ display: 'flex', gap: '8px', marginTop: '32px' }}>
           {HERO_SLIDES.map((_, i) => (
             <button
               key={i}
               onClick={() => setActiveSlide(i)}
-              className="h-[3px] rounded-full transition-all duration-500"
-              style={{
-                width: i === activeSlide ? "40px" : "20px",
-                background: i === activeSlide ? "#D4A832" : "rgba(154,157,165,0.3)",
-              }}
-              aria-label={`Go to slide ${i + 1}`}
+              style={{ height: '3px', borderRadius: '999px', border: 'none', cursor: 'pointer', transition: 'all 0.5s', width: i === activeSlide ? '40px' : '20px', background: i === activeSlide ? '#D4A832' : 'rgba(154,157,165,0.3)' }}
             />
           ))}
         </div>
       </div>
 
-      {/* Tagline watermark */}
-      <div className="absolute bottom-8 right-8 z-10 hidden md:block">
-        <p
-          className="text-sm tracking-wide italic"
-          style={{
-            color: "rgba(154,157,165,0.4)",
-            fontFamily: "var(--font-display)",
-          }}
-        >
-          "Where Success Goes Live... Legacy Lives Forever."
+      {/* Tagline */}
+      <div style={{ position: 'absolute', bottom: '20px', right: '20px', zIndex: 10, display: 'none' }}>
+        <p style={{ color: 'rgba(154,157,165,0.4)', fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: '12px' }}>
+          Where Success Goes Live... Legacy Lives Forever.
         </p>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        animate={{ y: [0, 8, 0] }}
-        transition={{ repeat: Infinity, duration: 2.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 hidden md:block"
-        style={{ color: "rgba(154,157,165,0.4)" }}
-      >
-        <ChevronDown size={24} />
-      </motion.div>
-
       {/* Video Modal */}
-      <AnimatePresence>
-        {videoOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setVideoOpen(false)}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
-            style={{ background: "rgba(8,9,11,0.95)", backdropFilter: "blur(8px)" }}
+      {videoOpen && (
+        <div
+          onClick={() => setVideoOpen(false)}
+          style={{ position: 'fixed', inset: 0, zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px', background: 'rgba(8,9,11,0.95)' }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{ width: '100%', maxWidth: '900px', aspectRatio: '16/9', borderRadius: '12px', overflow: 'hidden', border: '1px solid rgba(212,168,50,0.2)' }}
           >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", damping: 25 }}
-              onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-5xl rounded-xl overflow-hidden shadow-gold-lg border"
-              style={{
-                aspectRatio: "16/9",
-                borderColor: "rgba(212,168,50,0.2)",
-              }}
-            >
-              <iframe
-                src={`https://www.youtube.com/embed/${current.youtubeVideoId}?autoplay=1&rel=0`}
-                className="w-full h-full"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-              />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <iframe
+              src={'https://www.youtube.com/embed/' + current.youtubeVideoId + '?autoplay=1&rel=0'}
+              style={{ width: '100%', height: '100%' }}
+              allow='autoplay; encrypted-media'
+              allowFullScreen
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 }

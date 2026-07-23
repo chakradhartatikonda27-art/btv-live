@@ -46,7 +46,7 @@ export default async function EventsPage() {
               <span className='live-dot' />
               <h2 className='text-2xl text-white' style={{ fontFamily: 'var(--font-display)' }}>Happening Now</h2>
             </div>
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6'>
               {liveEvents.map((event) => <EventCard key={event.id} event={event} />)}
             </div>
           </div>
@@ -55,7 +55,7 @@ export default async function EventsPage() {
         {upcomingEvents.length > 0 && (
           <div className='mb-14'>
             <h2 className='text-2xl text-white mb-6' style={{ fontFamily: 'var(--font-display)' }}>Upcoming Events</h2>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6'>
               {upcomingEvents.map((event) => <EventCard key={event.id} event={event} />)}
             </div>
           </div>

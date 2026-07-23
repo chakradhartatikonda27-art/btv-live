@@ -41,17 +41,17 @@ export default async function ShowsPage({ searchParams }: { searchParams: Promis
   return (
     <main className='min-h-screen pt-24 pb-16' style={{ background: '#08090B' }}>
       <div className='max-w-7xl mx-auto px-4 md:px-8'>
-        <div className='mb-12'>
+        <div className='mb-8 md:mb-12'>
           <p className='text-gold-500 font-mono text-xs tracking-[0.2em] uppercase mb-2'>
             BTV LIVE
           </p>
-          <h1 className='text-4xl md:text-6xl text-platinum-50 mb-4' style={{ fontFamily: 'var(--font-display)' }}>
+          <h1 className='text-3xl md:text-6xl text-platinum-50 mb-3 md:mb-4' style={{ fontFamily: 'var(--font-display)' }}>
             All Interviews
           </h1>
           <p className='text-platinum-400 text-base'>{interviews.length} stories published</p>
         </div>
 
-        <div className='flex flex-wrap gap-3 mb-10'>
+        <div className='flex flex-wrap gap-2 md:gap-3 mb-6 md:mb-10'>
           <div className='flex flex-wrap gap-2'>
             <a href='/shows' className='px-4 py-2 rounded-full text-sm font-medium' style={{ background: category ? '#141619' : '#D4A832', color: category ? '#9A9DA5' : '#08090B', border: category ? '1px solid #252830' : '1px solid #D4A832' }}>
               All
