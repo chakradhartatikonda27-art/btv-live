@@ -11,53 +11,63 @@ export default async function AdminSubmissionsPage() {
   const rejected = submissions.filter((s) => s.status === 'REJECTED');
 
   return (
-    <div style={{ padding: '32px' }}>
-      <div style={{ marginBottom: '32px' }}>
-        <p style={{ color: '#CC0000', fontFamily: 'monospace', fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase', margin: '0 0 4px' }}>Nominations</p>
-        <h1 style={{ color: '#1A1A2E', fontSize: '28px', fontFamily: 'Georgia, serif', margin: 0 }}>Submissions</h1>
+    <div className='p-8'>
+      <div className='mb-8'>
+        <p className='text-gold-500 font-mono text-xs tracking-[0.2em] uppercase mb-1'>Admin</p>
+        <h1 className='text-3xl text-platinum-50' style={{ fontFamily: 'var(--font-display)' }}>
+          Submissions
+        </h1>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '32px' }}>
+      <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mb-8'>
         {[
-          { label: 'Pending', count: pending.length, bg: '#FEF3C7', color: '#D97706' },
-          { label: 'Under Review', count: underReview.length, bg: '#DBEAFE', color: '#2563EB' },
-          { label: 'Approved', count: approved.length, bg: '#DCFCE7', color: '#16A34A' },
-          { label: 'Rejected', count: rejected.length, bg: '#FEE2E2', color: '#DC2626' },
+          { label: 'Pending', count: pending.length, color: '#D4A832' },
+          { label: 'Under Review', count: underReview.length, color: '#60a5fa' },
+          { label: 'Approved', count: approved.length, color: '#22c55e' },
+          { label: 'Rejected', count: rejected.length, color: '#ef4444' },
         ].map((stat) => (
-          <div key={stat.label} style={{ padding: '20px', borderRadius: '12px', background: '#FFFFFF', border: '1px solid #E5E7EB', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', textAlign: 'center' }}>
-            <p style={{ fontSize: '32px', fontWeight: 'bold', fontFamily: 'Georgia, serif', color: stat.color, margin: '0 0 4px' }}>{stat.count}</p>
-            <p style={{ color: '#6B7280', fontSize: '12px', margin: 0 }}>{stat.label}</p>
+          <div key={stat.label} className='p-4 rounded-xl text-center' style={{ background: '#141619', border: '1px solid #252830' }}>
+            <p className='text-2xl font-bold mb-1' style={{ fontFamily: 'var(--font-display)', color: stat.color }}>
+              {stat.count}
+            </p>
+            <p className='text-platinum-400 text-xs'>{stat.label}</p>
           </div>
         ))}
       </div>
 
-      <div style={{ borderRadius: '12px', overflow: 'hidden', background: '#FFFFFF', border: '1px solid #E5E7EB', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }}>
-        <div style={{ padding: '16px 24px', borderBottom: '1px solid #E5E7EB' }}>
-          <p style={{ color: '#6B7280', fontSize: '14px', margin: 0 }}>{submissions.length} total submissions</p>
+      <div className='rounded-xl overflow-hidden' style={{ background: '#141619', border: '1px solid #252830' }}>
+        <div className='px-6 py-4 border-b' style={{ borderColor: '#252830' }}>
+          <p className='text-platinum-400 text-sm'>{submissions.length} total submissions</p>
         </div>
 
         {submissions.length === 0 ? (
-          <div style={{ padding: '64px 24px', textAlign: 'center' }}>
-            <p style={{ color: '#9CA3AF', fontSize: '14px', margin: 0 }}>No submissions yet.</p>
+          <div className='px-6 py-16 text-center'>
+            <p className='text-platinum-400 text-sm'>No submissions yet.</p>
           </div>
         ) : (
-          <div>
-            {submissions.map((sub, i) => (
-              <div key={sub.id} style={{ padding: '20px 24px', borderBottom: i < submissions.length - 1 ? '1px solid #F3F4F6' : 'none' }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '8px' }}>
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                      <p style={{ color: '#1A1A2E', fontSize: '15px', fontWeight: '600', margin: 0 }}>{sub.fullName}</p>
-                      <span style={{
-                        fontSize: '11px', padding: '2px 8px', borderRadius: '999px', fontWeight: '600',
-                        background: sub.status === 'PENDING' ? '#FEF3C7' : sub.status === 'APPROVED' ? '#DCFCE7' : sub.status === 'UNDER_REVIEW' ? '#DBEAFE' : '#FEE2E2',
-                        color: sub.status === 'PENDING' ? '#D97706' : sub.status === 'APPROVED' ? '#16A34A' : sub.status === 'UNDER_REVIEW' ? '#2563EB' : '#DC2626',
+          <div className='divide-y' style={{ borderColor: '#252830' }}>
+            {submissions.map((sub) => (
+              <div key={sub.id} className='px-6 py-5'>
+                <div className='flex items-start justify-between'>
+                  <div className='flex-1'>
+                    <div className='flex items-center gap-3 mb-1'>
+                      <p className='text-platinum-100 font-medium'>{sub.fullName}</p>
+                      <span className='text-xs px-2.5 py-0.5 rounded-full font-medium' style={{
+                        background: sub.status === 'PENDING' ? 'rgba(212,168,50,0.1)' :
+                          sub.status === 'APPROVED' ? 'rgba(34,197,94,0.1)' :
+                          sub.status === 'UNDER_REVIEW' ? 'rgba(96,165,250,0.1)' :
+                          'rgba(239,68,68,0.1)',
+                        color: sub.status === 'PENDING' ? '#D4A832' :
+                          sub.status === 'APPROVED' ? '#22c55e' :
+                          sub.status === 'UNDER_REVIEW' ? '#60a5fa' :
+                          '#ef4444',
+                        border: '1px solid currentColor',
                       }}>
                         {sub.status}
                       </span>
                     </div>
-                    <p style={{ color: '#6B7280', fontSize: '13px', margin: '0 0 2px' }}>{sub.profession}{sub.company ? ' — ' + sub.company : ''}</p>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '12px', color: '#9CA3AF', fontFamily: 'monospace' }}>
+                    <p className='text-platinum-400 text-sm'>{sub.profession} {sub.company ? '— ' + sub.company : ''}</p>
+                    <div className='flex items-center gap-4 mt-1 text-xs text-platinum-500 font-mono'>
                       <span>{sub.email}</span>
                       {sub.city && <span>· {sub.city}</span>}
                       {sub.industry && <span>· {sub.industry}</span>}
@@ -65,13 +75,17 @@ export default async function AdminSubmissionsPage() {
                     </div>
                   </div>
                 </div>
-                <div style={{ padding: '10px 14px', borderRadius: '8px', background: '#F9FAFB', border: '1px solid #E5E7EB', fontSize: '13px', color: '#374151', lineHeight: 1.5 }}>
-                  {sub.achievements.substring(0, 200)}...
+
+                <div className='mt-3 p-3 rounded-lg text-sm text-platinum-300 leading-relaxed line-clamp-2' style={{ background: '#1C1E23' }}>
+                  {sub.achievements}
                 </div>
+
                 {sub.videoLink && (
-                  <a href={sub.videoLink} target='_blank' style={{ color: '#CC0000', fontSize: '12px', textDecoration: 'none', display: 'inline-block', marginTop: '8px' }}>
-                    View Video Link
-                  </a>
+                  <div className='mt-2'>
+                    <a href={sub.videoLink} target='_blank' className='text-gold-400 text-xs hover:text-gold-300 transition-colors'>
+                      View Video Link
+                    </a>
+                  </div>
                 )}
               </div>
             ))}
