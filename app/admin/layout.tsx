@@ -1,9 +1,10 @@
 import Link from 'next/link';
-import { LayoutDashboard, Video, FileText, Calendar, Users } from 'lucide-react';
+import { LayoutDashboard, Video, FileText, Calendar, Users, Newspaper } from 'lucide-react';
 
 const NAV_ITEMS = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/interviews', label: 'Interviews', icon: Video },
+  { href: '/admin/articles', label: 'Newsroom', icon: Newspaper },
   { href: '/admin/submissions', label: 'Submissions', icon: FileText },
   { href: '/admin/events', label: 'Events', icon: Calendar },
   { href: '/admin/team', label: 'Team', icon: Users },
