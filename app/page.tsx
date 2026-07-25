@@ -6,6 +6,7 @@ import LiveEventsBanner from "@/components/home/LiveEventsBanner";
 import ImpactCounter from "@/components/home/ImpactCounter";
 import NominateCTA from "@/components/home/NominateCTA";
 import NewsletterBar from "@/components/home/NewsletterBar";
+import MorningDigestTeaser from "@/components/home/MorningDigestTeaser";
 
 export const revalidate = 60;
 
@@ -39,6 +40,13 @@ async function getSiteStats() {
   return Object.fromEntries(stats.map((s) => [s.key, s.value]));
 }
 
+async function getMorningDigest() {
+  return prisma.morningDigest.findFirst({
+    where: { published: true },
+    orderBy: { date: 'desc' },
+  });
+}
+
 async function getCategories() {
   return prisma.category.findMany({
     orderBy: { sortOrder: "asc" },
@@ -47,13 +55,14 @@ async function getCategories() {
 }
 
 export default async function HomePage() {
-  const [featuredInterview, stories, events, stats, categories] =
+  const [featuredInterview, stories, events, stats, categories, morningDigest] =
     await Promise.all([
       getFeaturedInterview(),
       getFeaturedStories(),
       getUpcomingEvents(),
       getSiteStats(),
       getCategories(),
+      getMorningDigest(),
     ]);
 
   return (
@@ -101,6 +110,8 @@ export default async function HomePage() {
         </div>
         <FeaturedStories stories={stories} />
       </section>
+
+      <MorningDigestTeaser digest={morningDigest} />
 
       <ImpactCounter stats={stats} />
 
