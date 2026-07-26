@@ -362,3 +362,43 @@ model Opportunity {
   @@index([featured])
   @@map("opportunities")
 }
+
+enum BusinessCategory {
+  RESTAURANT
+  HOSPITAL
+  CA_FIRM
+  TECH_COMPANY
+  RETAIL
+  REAL_ESTATE
+  EDUCATION
+  HOTEL
+  MANUFACTURING
+  TRANSPORT
+  LEGAL
+  OTHER
+}
+
+model Business {
+  id          String           @id @default(cuid())
+  name        String
+  category    BusinessCategory
+  description String?          @db.Text
+  address     String?
+  city        String?
+  state       String?
+  phone       String?
+  whatsapp    String?
+  email       String?
+  website     String?
+  logoUrl     String?
+  coverImage  String?
+  featured    Boolean          @default(false)
+  verified    Boolean          @default(false)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@index([category])
+  @@index([city])
+  @@index([featured])
+  @@map("businesses")
+}

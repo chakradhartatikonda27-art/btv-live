@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { href: "/newsroom", label: "Newsroom" },
   { href: "/morning-digest", label: "Morning 7" },
   { href: "/opportunities", label: "Opportunities" },
+  { href: "/directory", label: "Directory" },
   { href: "/events", label: "Events & Awards" },
   { href: "/about", label: "About" },
 ];
