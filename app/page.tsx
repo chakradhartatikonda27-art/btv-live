@@ -7,6 +7,7 @@ import ImpactCounter from "@/components/home/ImpactCounter";
 import NominateCTA from "@/components/home/NominateCTA";
 import NewsletterBar from "@/components/home/NewsletterBar";
 import MorningDigestTeaser from "@/components/home/MorningDigestTeaser";
+import WelcomeSection from "@/components/home/WelcomeSection";
 import OpportunitiesTeaser from "@/components/home/OpportunitiesTeaser";
 import SocialMediaSection from "@/components/home/SocialMediaSection";
 
