@@ -8,6 +8,7 @@ import NominateCTA from "@/components/home/NominateCTA";
 import NewsletterBar from "@/components/home/NewsletterBar";
 import MorningDigestTeaser from "@/components/home/MorningDigestTeaser";
 import OpportunitiesTeaser from "@/components/home/OpportunitiesTeaser";
+import SocialMediaSection from "@/components/home/SocialMediaSection";
 
 export const revalidate = 60;
 
@@ -128,6 +129,8 @@ export default async function HomePage() {
       <ImpactCounter stats={stats} />
 
       <NominateCTA />
+
+      <SocialMediaSection />
 
       <NewsletterBar />
     </main>
