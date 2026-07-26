@@ -1,6 +1,18 @@
-import InterviewCard from '@/components/interviews/InterviewCard';
+'use client';
 
-export default function FeaturedStories({ stories }) {
+import { useRef } from 'react';
+import InterviewCard from '@/components/interviews/InterviewCard';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+
+export default function FeaturedStories({ stories }: { stories: any[] }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  function scroll(dir: 'left' | 'right') {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: dir === 'left' ? -280 : 280, behavior: 'smooth' });
+    }
+  }
+
   if (stories.length === 0) {
     return (
       <div style={{ textAlign: 'center', padding: '64px 0' }}>
@@ -10,11 +22,40 @@ export default function FeaturedStories({ stories }) {
   }
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(1, 1fr)', gap: '20px' }}
-      className='sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-      {stories.map((story) => (
-        <InterviewCard key={story.id} interview={story} />
-      ))}
+    <div style={{ position: 'relative' }}>
+      {/* Left arrow */}
+      <button
+        onClick={() => scroll('left')}
+        style={{ position: 'absolute', left: '-16px', top: '50%', transform: 'translateY(-50%)', zIndex: 10, width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(20,22,25,0.95)', border: '1px solid #252830', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#D4A832', boxShadow: '0 4px 12px rgba(0,0,0,0.4)' }}
+      >
+        <ChevronLeft size={18} />
+      </button>
+
+      {/* Scrollable row */}
+      <div
+        ref={scrollRef}
+        style={{ display: 'flex', gap: '12px', overflowX: 'auto', scrollbarWidth: 'none', paddingBottom: '4px', scrollSnapType: 'x mandatory' }}
+      >
+        <style>{`
+          .story-scroll::-webkit-scrollbar { display: none; }
+          .story-card { flex-shrink: 0; width: 200px; scroll-snap-align: start; }
+          @media (min-width: 640px) { .story-card { width: 220px; } }
+          @media (min-width: 1024px) { .story-card { width: 240px; } }
+        `}</style>
+        {stories.map((story) => (
+          <div key={story.id} className='story-card'>
+            <InterviewCard interview={story} />
+          </div>
+        ))}
+      </div>
+
+      {/* Right arrow */}
+      <button
+        onClick={() => scroll('right')}
+        style={{ position: 'absolute', right: '-16px', top: '50%', transform: 'translateY(-50%)', zIndex: 10, width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(212,168,50,0.9)', border: '1px solid #D4A832', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#08090B', boxShadow: '0 4px 12px rgba(0,0,0,0.4)' }}
+      >
+        <ChevronRight size={18} />
+      </button>
     </div>
   );
 }
