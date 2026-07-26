@@ -50,7 +50,7 @@ export default function HeroBanner({ interview }: { interview?: any }) {
   const current = HERO_SLIDES[activeSlide];
 
   return (
-    <section style={{ position: 'relative', minHeight: '75vh', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', zIndex: 1, marginTop: '0px' }}>
+    <section style={{ position: 'relative', minHeight: '100svh', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'center', zIndex: 1, marginTop: '0px' }}>
       {/* Background */}
       <div style={{ position: 'absolute', inset: 0, background: current.bg, transition: 'background 1s ease' }} />
 
@@ -68,7 +68,7 @@ export default function HeroBanner({ interview }: { interview?: any }) {
       <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 30% 60%, rgba(212,168,50,0.08) 0%, transparent 60%)', pointerEvents: 'none' }} />
 
       {/* Content */}
-      <div style={{ position: 'relative', zIndex: 10, padding: '80px 20px 48px', maxWidth: '800px' }}>
+      <div style={{ position: 'relative', zIndex: 10, padding: '80px 20px 32px', maxWidth: '800px' }}>
         {/* Category badge */}
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '16px', padding: '4px 12px', borderRadius: '999px', background: 'rgba(212,168,50,0.1)', border: '1px solid rgba(212,168,50,0.3)' }}>
           <span style={{ color: '#D4A832', fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase', fontFamily: 'monospace' }}>
