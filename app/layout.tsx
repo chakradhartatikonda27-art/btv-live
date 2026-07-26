@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='en' suppressHydrationWarning>
       <body className='min-h-screen antialiased' style={{ background: '#08090B', color: '#EDEEF0' }}>
-        <Navbar />
+<Navbar />
         {children}
         <Footer />
       </body>

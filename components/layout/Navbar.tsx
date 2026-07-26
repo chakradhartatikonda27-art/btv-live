@@ -51,8 +51,17 @@ export default function Navbar() {
 
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 16px', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           {/* Logo */}
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', zIndex: 10 }}>
-            <Image src="/btv-logo.jpg" alt="BTV LIVE" width={52} height={52} style={{ borderRadius: '4px', objectFit: 'contain' }} />
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', zIndex: 10 }}>
+            <Image src="/btv-logo.jpg" alt="BTV LIVE" width={40} height={40} style={{ borderRadius: '4px', objectFit: 'contain' }} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ background: '#CC0000', color: 'white', fontSize: '10px', fontWeight: '700', padding: '2px 7px', borderRadius: '3px', letterSpacing: '0.05em', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'white', display: 'inline-block', animation: 'btvLiveBlink 1s infinite' }} />
+                LIVE
+              </span>
+              <style>{`@keyframes btvLiveBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }`}</style>
+              <span style={{ color: 'white', fontSize: '15px', fontWeight: '800' }}>BTV <span style={{ color: '#D4A832' }}>LIVE</span></span>
+
+            </div>
           </Link>
 
           {/* Desktop nav */}
