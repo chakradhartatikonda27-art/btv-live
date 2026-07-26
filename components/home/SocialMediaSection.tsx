@@ -24,7 +24,7 @@ export default function SocialMediaSection() {
                 Subscribe
               </a>
             </div>
-            <div style={{ position: 'relative', paddingBottom: '177.78%', height: 0, overflow: 'hidden' }}>
+            <div style={{ position: 'relative', paddingBottom: '80%', height: 0, overflow: 'hidden' }}>
               <iframe
                 src="https://www.youtube.com/embed/dyAeSpDlluw"
                 style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
@@ -53,7 +53,7 @@ export default function SocialMediaSection() {
                 Follow
               </a>
             </div>
-            <div style={{ position: 'relative', paddingBottom: '177.78%', height: 0, overflow: 'hidden' }}>
+            <div style={{ position: 'relative', paddingBottom: '80%', height: 0, overflow: 'hidden' }}>
               <iframe
                 src="https://www.instagram.com/reel/DbGnjyWk0HY/embed/"
                 style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
