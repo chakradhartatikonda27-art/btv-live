@@ -1,5 +1,7 @@
+'use client';
+import { useState } from 'react';
 import Link from 'next/link';
-import { LayoutDashboard, Video, FileText, Calendar, Users, Newspaper, Sun } from 'lucide-react';
+import { LayoutDashboard, Video, FileText, Calendar, Users, Newspaper, Sun, Briefcase, Building2, Settings } from 'lucide-react';
 
 const NAV_ITEMS = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
@@ -9,7 +11,27 @@ const NAV_ITEMS = [
   { href: '/admin/submissions', label: 'Submissions', icon: FileText },
   { href: '/admin/events', label: 'Events', icon: Calendar },
   { href: '/admin/team', label: 'Team', icon: Users },
+  { href: '/admin/settings', label: 'Settings', icon: Settings },
 ];
+
+function PublishButton() {
+  const [publishing, setPublishing] = useState(false);
+  const [done, setDone] = useState(false);
+
+  async function handlePublish() {
+    setPublishing(true);
+    await fetch('/api/admin/revalidate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) });
+    setPublishing(false);
+    setDone(true);
+    setTimeout(() => setDone(false), 3000);
+  }
+
+  return (
+    <button onClick={handlePublish} disabled={publishing} style={{ background: done ? '#22c55e' : '#CC0000', color: 'white', border: 'none', borderRadius: '8px', padding: '6px 16px', cursor: 'pointer', fontSize: '12px', fontWeight: '700', letterSpacing: '0.05em' }}>
+      {publishing ? 'Publishing...' : done ? '✓ Published' : '🚀 Publish Changes'}
+    </button>
+  );
+}
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (

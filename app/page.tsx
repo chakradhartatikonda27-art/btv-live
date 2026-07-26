@@ -11,7 +11,7 @@ import WelcomeSection from "@/components/home/WelcomeSection";
 import OpportunitiesTeaser from "@/components/home/OpportunitiesTeaser";
 import SocialMediaSection from "@/components/home/SocialMediaSection";
 
-export const revalidate = 60;
+export const revalidate = 0;
 
 async function getFeaturedInterview() {
   return prisma.interview.findFirst({
@@ -81,7 +81,7 @@ export default async function HomePage() {
     <main className="min-h-screen" style={{ background: "#08090B" }}>
       <HeroBanner interview={featuredInterview} />
 
-      {events.length > 0 && <LiveEventsBanner events={events} />}
+      <WelcomeSection />
 
       <section className="py-16 px-4 md:px-8 max-w-7xl mx-auto">
         <div className="flex items-baseline justify-between mb-10">
@@ -127,7 +127,7 @@ export default async function HomePage() {
 
       <OpportunitiesTeaser opportunities={opportunities} />
 
-      <ImpactCounter stats={stats} />
+      <ImpactCounter />
 
       <NominateCTA />
 

@@ -14,15 +14,11 @@ export const metadata: Metadata = {
   icons: { icon: '/favicon.ico' },
 };
 
-// NOTE: ClerkProvider is ready to re-enable before production launch
-// import { ClerkProvider } from '@clerk/nextjs';
-// Wrap body with <ClerkProvider> when Clerk is activated
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <body className='min-h-screen antialiased' style={{ background: '#08090B', color: '#EDEEF0' }}>
-<Navbar />
+      <body className='min-h-screen antialiased' style={{ background: '#08090B', color: '#EDEEF0', paddingTop: '88px' }}>
+        <Navbar />
         {children}
         <Footer />
       </body>

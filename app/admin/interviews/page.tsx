@@ -1,57 +1,89 @@
-import { prisma } from '@/lib/prisma';
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-export default async function AdminInterviewsPage() {
-  const interviews = await prisma.interview.findMany({
-    include: { guest: true, category: true },
-    orderBy: { createdAt: 'desc' },
-  });
+export default function AdminInterviewsPage() {
+  const [interviews, setInterviews] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/admin/interviews').then(r => r.json()).then(d => {
+      setInterviews(d.interviews || []);
+      setLoading(false);
+    });
+  }, []);
+
+  async function handleDelete(id: string, title: string) {
+    if (!confirm('Delete "' + title + '"?')) return;
+    await fetch('/api/admin/interviews/' + id, { method: 'DELETE' });
+    setInterviews(prev => prev.filter(i => i.id !== id));
+  }
+
+  async function toggleStatus(id: string, currentStatus: string) {
+    const newStatus = currentStatus === 'PUBLISHED' ? 'DRAFT' : 'PUBLISHED';
+    await fetch('/api/admin/interviews/' + id, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: newStatus, publishedAt: newStatus === 'PUBLISHED' ? new Date().toISOString() : null }),
+    });
+    setInterviews(prev => prev.map(i => i.id === id ? { ...i, status: newStatus } : i));
+  }
 
   return (
-    <div className='p-8'>
-      <div className='flex items-center justify-between mb-8'>
+    <div style={{ padding: '32px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px' }}>
         <div>
-          <p className='text-gold-500 font-mono text-xs tracking-[0.2em] uppercase mb-1'>Admin</p>
-          <h1 className='text-3xl text-platinum-50' style={{ fontFamily: 'var(--font-display)' }}>
-            Interviews
-          </h1>
+          <p style={{ color: '#D4A832', fontFamily: 'monospace', fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase', margin: '0 0 4px' }}>Content</p>
+          <h1 style={{ color: '#EDEEF0', fontSize: '28px', fontFamily: 'Georgia, serif', margin: 0 }}>Interviews</h1>
         </div>
+        <Link href='/admin/interviews/new' style={{ background: '#D4A832', color: '#08090B', fontWeight: '600', fontSize: '14px', padding: '10px 20px', borderRadius: '999px', textDecoration: 'none' }}>
+          + New Interview
+        </Link>
       </div>
 
-      <div className='rounded-xl overflow-hidden' style={{ background: '#141619', border: '1px solid #252830' }}>
-        <div className='px-6 py-4 border-b' style={{ borderColor: '#252830' }}>
-          <p className='text-platinum-400 text-sm'>{interviews.length} total interviews</p>
+      <div style={{ borderRadius: '12px', overflow: 'hidden', background: '#141619', border: '1px solid #252830' }}>
+        <div style={{ padding: '16px 24px', borderBottom: '1px solid #252830' }}>
+          <p style={{ color: '#9A9DA5', fontSize: '14px', margin: 0 }}>{interviews.length} total interviews</p>
         </div>
 
-        {interviews.length === 0 ? (
-          <div className='px-6 py-16 text-center'>
-            <p className='text-platinum-400 text-sm'>No interviews yet.</p>
+        {loading ? (
+          <div style={{ padding: '48px', textAlign: 'center' }}>
+            <p style={{ color: '#9A9DA5', fontSize: '14px', margin: 0 }}>Loading...</p>
+          </div>
+        ) : interviews.length === 0 ? (
+          <div style={{ padding: '64px 24px', textAlign: 'center' }}>
+            <p style={{ color: '#9A9DA5', fontSize: '14px', margin: '0 0 16px' }}>No interviews yet.</p>
+            <Link href='/admin/interviews/new' style={{ color: '#D4A832', fontSize: '14px', textDecoration: 'none' }}>Add your first interview</Link>
           </div>
         ) : (
-          <div className='divide-y' style={{ borderColor: '#252830' }}>
-            {interviews.map((interview) => (
-              <div key={interview.id} className='px-6 py-4 flex items-center justify-between'>
-                <div className='flex-1 min-w-0'>
-                  <p className='text-platinum-100 text-sm font-medium truncate'>{interview.title}</p>
-                  <div className='flex items-center gap-3 mt-0.5'>
-                    <p className='text-platinum-400 text-xs'>{interview.guest.fullName}</p>
-                    <span className='text-platinum-600'>·</span>
-                    <p className='text-platinum-400 text-xs'>{interview.category.name}</p>
-                    <span className='text-platinum-600'>·</span>
-                    <p className='text-platinum-500 text-xs font-mono'>{interview.viewCount} views</p>
+          <div>
+            {interviews.map((interview, i) => (
+              <div key={interview.id} style={{ padding: '16px 24px', borderBottom: i < interviews.length - 1 ? '1px solid #1C1E23' : 'none', display: 'flex', alignItems: 'center', gap: '16px' }}>
+                {interview.thumbnailUrl && (
+                  <img src={interview.thumbnailUrl} alt={interview.title} style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '6px', flexShrink: 0 }} />
+                )}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{ color: '#EDEEF0', fontSize: '14px', fontWeight: '500', margin: '0 0 2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{interview.title}</p>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <p style={{ color: '#9A9DA5', fontSize: '12px', margin: 0 }}>{interview.guest?.fullName}</p>
+                    <span style={{ color: '#252830' }}>·</span>
+                    <p style={{ color: '#7A7D85', fontSize: '12px', margin: 0 }}>{interview.category?.name}</p>
+                    <span style={{ color: '#252830' }}>·</span>
+                    <p style={{ color: '#7A7D85', fontSize: '12px', margin: 0, fontFamily: 'monospace' }}>{interview.viewCount} views</p>
                   </div>
                 </div>
-                <div className='flex items-center gap-3 ml-4'>
-                  <span className='text-xs px-2.5 py-1 rounded-full font-medium' style={{
-                    background: interview.status === 'PUBLISHED' ? 'rgba(34,197,94,0.1)' : interview.status === 'DRAFT' ? 'rgba(212,168,50,0.1)' : 'rgba(100,116,139,0.1)',
-                    color: interview.status === 'PUBLISHED' ? '#22c55e' : interview.status === 'DRAFT' ? '#D4A832' : '#64748b',
-                    border: interview.status === 'PUBLISHED' ? '1px solid rgba(34,197,94,0.3)' : '1px solid rgba(212,168,50,0.3)',
-                  }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+                  <button
+                    onClick={() => toggleStatus(interview.id, interview.status)}
+                    style={{ fontSize: '11px', padding: '3px 10px', borderRadius: '999px', fontWeight: '600', cursor: 'pointer', border: '1px solid currentColor', background: 'transparent',
+                      color: interview.status === 'PUBLISHED' ? '#22c55e' : '#D4A832' }}
+                  >
                     {interview.status}
-                  </span>
-                  <a href={'/shows/' + interview.slug} target='_blank' className='text-platinum-400 text-xs hover:text-gold-400 transition-colors'>
-                    View
-                  </a>
+                  </button>
+                  <Link href={'/admin/interviews/' + interview.id} style={{ color: '#D4A832', fontSize: '12px', textDecoration: 'none', fontWeight: '500' }}>Edit</Link>
+                  <a href={'/shows/' + interview.slug} target='_blank' style={{ color: '#7A7D85', fontSize: '12px', textDecoration: 'none' }}>View</a>
+                  <button onClick={() => handleDelete(interview.id, interview.title)} style={{ color: '#EF4444', fontSize: '12px', background: 'none', border: 'none', cursor: 'pointer', fontWeight: '500' }}>Delete</button>
                 </div>
               </div>
             ))}

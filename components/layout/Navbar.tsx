@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
+
 const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/shows", label: "Interviews" },
@@ -150,6 +151,24 @@ export default function Navbar() {
             </Link>
           </div>
         )}
+      {/* Live Ticker */}
+      <div style={{ background: '#CC0000', height: '28px', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+        <div style={{ flexShrink: 0, background: '#08090B', height: '100%', display: 'flex', alignItems: 'center', padding: '0 12px', gap: '6px' }}>
+          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'white', display: 'inline-block', animation: 'btvblink 1s infinite' }} />
+          <span style={{ fontSize: '10px', fontWeight: '800', letterSpacing: '0.12em', color: 'white' }}>LIVE</span>
+        </div>
+        <div style={{ overflow: 'hidden', flex: 1 }}>
+          <div style={{ display: 'flex', animation: 'btv-ticker-scroll 50s linear infinite', whiteSpace: 'nowrap' }}>
+            {['BTV Business Excellence Awards 2025 — Hyderabad, 15 Sept ◆', 'BTV LIVE is looking for Reporters & Field Agents ◆', 'Join BTV LIVE as a Business Development Agent ◆', 'Nominate a Business Leader today ◆', 'Subscribe to Morning 7 Digest ◆', 'BTV LIVE — Where Success Goes Live ◆', 'BTV Business Excellence Awards 2025 — Hyderabad, 15 Sept ◆', 'BTV LIVE is looking for Reporters & Field Agents ◆', 'Join BTV LIVE as a Business Development Agent ◆', 'Nominate a Business Leader today ◆', 'Subscribe to Morning 7 Digest ◆', 'BTV LIVE — Where Success Goes Live ◆'].map((item, i) => (
+              <span key={i} style={{ fontSize: '11px', color: 'white', padding: '0 24px', fontWeight: '500' }}>{item}</span>
+            ))}
+          </div>
+        </div>
+        <style>{`
+          @keyframes btvblink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+          @keyframes btv-ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        `}</style>
+      </div>
       </header>
     </>
   );

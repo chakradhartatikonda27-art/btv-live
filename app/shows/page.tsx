@@ -2,7 +2,7 @@ import { prisma } from '@/lib/prisma';
 import FeaturedStories from '@/components/home/FeaturedStories';
 import type { Metadata } from 'next';
 
-export const revalidate = 120;
+export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: 'Interviews and Shows',

@@ -402,3 +402,24 @@ model Business {
   @@index([featured])
   @@map("businesses")
 }
+
+model SiteSettings {
+  id              String   @id @default(cuid())
+  youtubeUrl      String   @default("https://www.youtube.com/@Btvlive-b2b")
+  instagramUrl    String   @default("https://www.instagram.com/reel/DbGnjyWk0HY/")
+  whatsappNumber  String   @default("+919876543210")
+  storiesFeatured Int      @default(500)
+  totalViewers    Int      @default(1)
+  awardCeremonies Int      @default(50)
+  industriesCovered Int    @default(12)
+  tickerMessages  String[]
+  heroSlides      Json     @default("[]")
+  welcomeTitle    String   @default("India's Premier Business & Lifestyle Media Platform")
+  welcomeDesc     String   @default("BTV LIVE is a premium media platform dedicated to showcasing the inspiring journeys of entrepreneurs, business leaders, doctors, innovators, and extraordinary individuals.")
+  missionText     String   @default("To celebrate excellence, inspire leadership, and preserve the legacies of remarkable individuals who serve as role models for future generations.")
+  footerTagline   String   @default("Where Success Goes Live... Legacy Lives Forever.")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("site_settings")
+}

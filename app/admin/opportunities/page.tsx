@@ -1,15 +1,35 @@
-import { prisma } from '@/lib/prisma';
+'use client';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-export default async function AdminOpportunitiesPage() {
-  const opportunities = await prisma.opportunity.findMany({
-    orderBy: { createdAt: 'desc' },
-  });
+const TYPE_COLORS: Record<string,string> = { JOB:'#3B82F6', BUSINESS_LEAD:'#22C55E', TENDER:'#F59E0B', FRANCHISE:'#8B5CF6', PARTNERSHIP:'#EC4899' };
 
-  const TYPE_COLORS: Record<string, string> = {
-    JOB: '#3B82F6', BUSINESS_LEAD: '#22C55E', TENDER: '#F59E0B',
-    FRANCHISE: '#8B5CF6', PARTNERSHIP: '#EC4899',
-  };
+export default function AdminOpportunitiesPage() {
+  const [opportunities, setOpportunities] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/admin/opportunities').then(r => r.json()).then(d => {
+      setOpportunities(d.opportunities || []);
+      setLoading(false);
+    });
+  }, []);
+
+  async function handleDelete(id: string, title: string) {
+    if (!confirm('Delete "' + title + '"?')) return;
+    await fetch('/api/admin/opportunities/' + id, { method: 'DELETE' });
+    setOpportunities(prev => prev.filter(o => o.id !== id));
+  }
+
+  async function toggleStatus(id: string, current: string) {
+    const next = current === 'ACTIVE' ? 'CLOSED' : 'ACTIVE';
+    await fetch('/api/admin/opportunities/' + id, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: next }),
+    });
+    setOpportunities(prev => prev.map(o => o.id === id ? { ...o, status: next } : o));
+  }
 
   return (
     <div style={{ padding: '32px' }}>
@@ -27,27 +47,30 @@ export default async function AdminOpportunitiesPage() {
         <div style={{ padding: '16px 24px', borderBottom: '1px solid #252830' }}>
           <p style={{ color: '#9A9DA5', fontSize: '14px', margin: 0 }}>{opportunities.length} total opportunities</p>
         </div>
-        {opportunities.length === 0 ? (
+        {loading ? (
+          <div style={{ padding: '48px', textAlign: 'center' }}><p style={{ color: '#9A9DA5', margin: 0 }}>Loading...</p></div>
+        ) : opportunities.length === 0 ? (
           <div style={{ padding: '64px 24px', textAlign: 'center' }}>
-            <p style={{ color: '#9A9DA5', fontSize: '14px', margin: 0 }}>No opportunities yet.</p>
+            <Link href='/admin/opportunities/new' style={{ color: '#D4A832', fontSize: '14px', textDecoration: 'none' }}>Add first opportunity</Link>
           </div>
         ) : (
           <div>
             {opportunities.map((opp, i) => (
-              <div key={opp.id} style={{ padding: '16px 24px', borderBottom: i < opportunities.length - 1 ? '1px solid #1C1E23' : 'none', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div key={opp.id} style={{ padding: '16px 24px', borderBottom: i < opportunities.length - 1 ? '1px solid #1C1E23' : 'none', display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                    <span style={{ fontSize: '10px', fontWeight: '700', color: TYPE_COLORS[opp.type], textTransform: 'uppercase' }}>{opp.type.replace('_', ' ')}</span>
-                    {opp.featured && <span style={{ fontSize: '10px', color: '#D4A832' }}>★ Featured</span>}
+                  <div style={{ display: 'flex', gap: '8px', marginBottom: '4px' }}>
+                    <span style={{ fontSize: '10px', fontWeight: '700', color: TYPE_COLORS[opp.type] }}>{opp.type.replace('_',' ')}</span>
+                    {opp.featured && <span style={{ fontSize: '10px', color: '#D4A832' }}>★</span>}
                   </div>
-                  <p style={{ color: '#EDEEF0', fontSize: '14px', fontWeight: '500', margin: '0 0 2px' }}>{opp.title}</p>
-                  <p style={{ color: '#9A9DA5', fontSize: '12px', margin: 0 }}>{opp.company} {opp.city ? '· ' + opp.city : ''}</p>
+                  <p style={{ color: '#EDEEF0', fontSize: '14px', fontWeight: '500', margin: '0 0 2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{opp.title}</p>
+                  <p style={{ color: '#9A9DA5', fontSize: '12px', margin: 0 }}>{opp.company}{opp.city ? ' · ' + opp.city : ''}</p>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginLeft: '16px' }}>
-                  <span style={{ fontSize: '11px', padding: '3px 10px', borderRadius: '999px', fontWeight: '600', background: opp.status === 'ACTIVE' ? 'rgba(34,197,94,0.1)' : 'rgba(239,68,68,0.1)', color: opp.status === 'ACTIVE' ? '#22c55e' : '#ef4444', border: '1px solid currentColor' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+                  <button onClick={() => toggleStatus(opp.id, opp.status)} style={{ fontSize: '11px', padding: '3px 10px', borderRadius: '999px', fontWeight: '600', cursor: 'pointer', border: '1px solid currentColor', background: 'transparent', color: opp.status === 'ACTIVE' ? '#22c55e' : '#EF4444' }}>
                     {opp.status}
-                  </span>
+                  </button>
                   <Link href={'/admin/opportunities/' + opp.id} style={{ color: '#D4A832', fontSize: '12px', textDecoration: 'none', fontWeight: '500' }}>Edit</Link>
+                  <button onClick={() => handleDelete(opp.id, opp.title)} style={{ color: '#EF4444', fontSize: '12px', background: 'none', border: 'none', cursor: 'pointer', fontWeight: '500' }}>Delete</button>
                 </div>
               </div>
             ))}
