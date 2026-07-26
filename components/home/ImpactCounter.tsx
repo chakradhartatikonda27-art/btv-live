@@ -9,14 +9,14 @@ const DEFAULT_STATS = [
   { key: 'industries_covered', label: 'Industries Covered', suffix: '+' },
 ];
 
-const STAT_VALUES = {
+const STAT_VALUES: Record<string, number> = {
   stories_featured: 500,
   total_viewers: 1,
   award_ceremonies: 50,
   industries_covered: 12,
 };
 
-function StatItem({ label, suffix, value }) {
+function StatItem({ label, suffix, value }: { label: string; suffix: string; value: number }) {
   return (
     <div style={{ textAlign: 'center', padding: '0 16px', position: 'relative' }}>
       <div style={{ fontSize: 'clamp(36px, 10vw, 56px)', fontWeight: 'bold', fontFamily: 'Georgia, serif', color: '#E8C35A', marginBottom: '8px' }}>
@@ -28,7 +28,7 @@ function StatItem({ label, suffix, value }) {
   );
 }
 
-export default function ImpactCounter({ stats }) {
+export default function ImpactCounter({ stats }: { stats: any }) {
   return (
     <section style={{ padding: '60px 16px', borderTop: '1px solid #1C1E23', borderBottom: '1px solid #1C1E23', background: '#0D0F12', position: 'relative', overflow: 'hidden' }}>
       <div style={{ maxWidth: '900px', margin: '0 auto' }}>

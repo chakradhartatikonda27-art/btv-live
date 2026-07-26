@@ -43,7 +43,7 @@ export default function OpportunitiesPage() {
         {/* Type filters */}
         <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '24px' }}>
           {types.map((t) => (
-            <button key={t} onClick={() => setType(t)} style={{ padding: '8px 16px', borderRadius: '999px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600', background: type === t ? (t ? TYPE_COLORS[t] : '#D4A832') : '#141619', color: type === t ? (t === 'TENDER' || t === '' ? '#08090B' : 'white') : '#9A9DA5', border: type === t ? 'none' : '1px solid #252830' }}>
+            <button key={t} onClick={() => setType(t)} style={{ padding: '8px 16px', borderRadius: '999px', border: 'none', cursor: 'pointer', fontSize: '13px', fontWeight: '600', background: type === t ? (t ? TYPE_COLORS[t] : '#D4A832') : '#141619', color: type === t ? (t === 'TENDER' || t === '' ? '#08090B' : 'white') : '#9A9DA5' }}>
               {t ? TYPE_LABELS[t] : 'All'}
             </button>
           ))}

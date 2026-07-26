@@ -35,7 +35,7 @@ const HERO_SLIDES = [
   },
 ];
 
-export default function HeroBanner({ interview }) {
+export default function HeroBanner({ interview }: { interview?: any }) {
   const [activeSlide, setActiveSlide] = useState(0);
   const [videoOpen, setVideoOpen] = useState(false);
 

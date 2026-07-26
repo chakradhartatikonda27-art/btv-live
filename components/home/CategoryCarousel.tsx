@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { Briefcase, Heart, Scale, Lightbulb, Star, Trophy, Home, GraduationCap } from 'lucide-react';
 
-const CATEGORY_ICONS = {
+const CATEGORY_ICONS: Record<string, any> = {
   BUSINESS_LEADERS: Briefcase,
   DOCTORS_HEALTHCARE: Heart,
   CAs_LEGAL: Scale,
@@ -14,7 +14,7 @@ const CATEGORY_ICONS = {
   EDUCATION: GraduationCap,
 };
 
-export default function CategoryCarousel({ categories }) {
+export default function CategoryCarousel({ categories }: { categories: any[] }) {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}
       className='sm:grid-cols-3 lg:grid-cols-6'>
