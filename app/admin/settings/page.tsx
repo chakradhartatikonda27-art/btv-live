@@ -22,6 +22,8 @@ export default function AdminSettingsPage() {
     missionText: 'To celebrate excellence, inspire leadership, and preserve the legacies of remarkable individuals who serve as role models for future generations.',
     // Footer
     footerTagline: 'Where Success Goes Live... Legacy Lives Forever.',
+    contactEmail: 'btvliveindia@gmail.com',
+    contactPhone: '+91-9885126368',
     // Ticker
     tickerMessages: 'BTV Business Excellence Awards 2025 — Hyderabad, 15 Sept ◆\nBTV LIVE is looking for Reporters & Field Agents across AP and Telangana ◆\nJoin BTV LIVE as a Business Development Agent — Earn while you grow ◆',
   });
@@ -29,7 +31,10 @@ export default function AdminSettingsPage() {
   useEffect(() => {
     fetch('/api/admin/settings').then((r) => r.json()).then((d) => {
       if (d.settings) {
-        setForm((prev) => ({ ...prev, ...d.settings, tickerMessages: (d.settings.tickerMessages || []).join('\n') }));
+        setForm((prev) => ({ ...prev, ...d.settings, 
+          contactEmail: d.settings.contactEmail || 'btvliveindia@gmail.com',
+          contactPhone: d.settings.contactPhone || '+91-9885126368',
+          tickerMessages: (d.settings.tickerMessages || []).join('\n') }));
       }
     });
   }, []);
@@ -65,6 +70,7 @@ export default function AdminSettingsPage() {
     { id: 'welcome', label: 'Welcome Section' },
     { id: 'ticker', label: 'Live Ticker' },
     { id: 'footer', label: 'Footer' },
+    { id: 'contact', label: 'Contact' },
   ];
 
   return (
@@ -117,6 +123,13 @@ export default function AdminSettingsPage() {
           {activeTab === 'ticker' && <>
             <p style={{ color: '#9A9DA5', fontSize: '13px', margin: 0 }}>The scrolling news ticker below the navbar. One message per line.</p>
             <div><label style={labelStyle}>Ticker Messages (one per line)</label><textarea value={form.tickerMessages} onChange={(e) => update('tickerMessages', e.target.value)} rows={8} placeholder={'Message 1 ◆\nMessage 2 ◆\nMessage 3 ◆'} style={{ ...inputStyle, resize: 'vertical' as const, fontFamily: 'monospace', fontSize: '12px' }} /></div>
+          </>}
+
+          {/* Contact */}
+          {activeTab === 'contact' && <>
+            <p style={{ color: '#9A9DA5', fontSize: '13px', margin: 0 }}>Contact details shown in footer and WhatsApp page.</p>
+            <div><label style={labelStyle}>Contact Email</label><input type='email' value={form.contactEmail} onChange={(e) => update('contactEmail', e.target.value)} style={inputStyle} /></div>
+            <div><label style={labelStyle}>Contact Phone</label><input type='text' value={form.contactPhone} onChange={(e) => update('contactPhone', e.target.value)} style={inputStyle} /></div>
           </>}
 
           {/* Footer */}

@@ -418,6 +418,8 @@ model SiteSettings {
   welcomeDesc     String   @default("BTV LIVE is a premium media platform dedicated to showcasing the inspiring journeys of entrepreneurs, business leaders, doctors, innovators, and extraordinary individuals.")
   missionText     String   @default("To celebrate excellence, inspire leadership, and preserve the legacies of remarkable individuals who serve as role models for future generations.")
   footerTagline   String   @default("Where Success Goes Live... Legacy Lives Forever.")
+  contactEmail    String   @default("btvliveindia@gmail.com")
+  contactPhone    String   @default("+91-9885126368")
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
