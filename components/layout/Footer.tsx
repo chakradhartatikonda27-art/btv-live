@@ -55,6 +55,14 @@ export default async function Footer() {
             >
               {tagline}
             </p>
+            <div className="mt-4 space-y-2">
+              <a href={'mailto:' + email} className="flex items-center gap-2 text-platinum-400 hover:text-gold-400 text-sm transition-colors">
+                📧 {email}
+              </a>
+              <a href={'tel:' + phone.replace(/[^0-9+]/g, '')} className="flex items-center gap-2 text-platinum-400 hover:text-gold-400 text-sm transition-colors">
+                📞 {phone}
+              </a>
+            </div>
           </div>
 
           {/* Links */}
