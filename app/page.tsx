@@ -8,7 +8,6 @@ import NominateCTA from "@/components/home/NominateCTA";
 import NewsletterBar from "@/components/home/NewsletterBar";
 import MorningDigestTeaser from "@/components/home/MorningDigestTeaser";
 import WelcomeSection from "@/components/home/WelcomeSection";
-import OpportunitiesTeaser from "@/components/home/OpportunitiesTeaser";
 import SocialMediaSection from "@/components/home/SocialMediaSection";
 
 export const revalidate = 0;
@@ -43,14 +42,6 @@ async function getSiteStats() {
   return Object.fromEntries(stats.map((s) => [s.key, s.value]));
 }
 
-async function getOpportunities() {
-  return prisma.opportunity.findMany({
-    where: { status: 'ACTIVE' },
-    orderBy: [{ featured: 'desc' }, { createdAt: 'desc' }],
-    take: 6,
-  });
-}
-
 async function getMorningDigest() {
   return prisma.morningDigest.findFirst({
     where: { published: true },
@@ -66,7 +57,7 @@ async function getCategories() {
 }
 
 export default async function HomePage() {
-  const [featuredInterview, stories, events, stats, categories, morningDigest, opportunities] =
+  const [featuredInterview, stories, events, stats, categories, morningDigest] =
     await Promise.all([
       getFeaturedInterview(),
       getFeaturedStories(),
@@ -74,7 +65,6 @@ export default async function HomePage() {
       getSiteStats(),
       getCategories(),
       getMorningDigest(),
-      getOpportunities(),
     ]);
 
   return (
@@ -124,8 +114,6 @@ export default async function HomePage() {
       </section>
 
       <MorningDigestTeaser digest={morningDigest} />
-
-      <OpportunitiesTeaser opportunities={opportunities} />
 
       <ImpactCounter />
 

@@ -1,4 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* Font System */
+:root {
+  --font-display: var(--font-sora), 'Georgia', serif;
+  --font-body: var(--font-inter), 'system-ui', sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sora), sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+/* Override Georgia serif references */
+[style*="Georgia"] {
+  font-family: var(--font-sora), 'Georgia', serif !important;
+}
+
+
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -169,3 +196,54 @@
   0% { opacity: 0; transform: translateY(20px); }
   100% { opacity: 1; transform: translateY(0); }
 }
+
+/* Smooth animations */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fade in up animation */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Hover transitions */
+a, button { transition: all 0.2s ease; }
+
+/* Card hover */
+.btv-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.btv-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+  border-color: rgba(212,168,50,0.3) !important;
+}
+
+/* Smooth page load */
+main {
+  animation: fadeIn 0.4s ease;
+}
+
+/* Section entrance */
+section {
+  animation: fadeInUp 0.5s ease;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0D0F12; }
+::-webkit-scrollbar-thumb { background: #252830; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #D4A832; }

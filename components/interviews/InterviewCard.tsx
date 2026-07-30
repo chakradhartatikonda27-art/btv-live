@@ -38,7 +38,7 @@ export default function InterviewCard({ interview }: InterviewCardProps) {
 
   return (
     <Link href={'/shows/' + interview.slug} style={{ textDecoration: 'none', display: 'block' }}>
-      <div style={{ borderRadius: '10px', overflow: 'hidden', background: '#141619', border: '1px solid #252830' }}>
+      <div className='btv-card' style={{ borderRadius: '10px', overflow: 'hidden', background: '#141619', border: '1px solid #252830' }}>
         
         {/* Square thumbnail */}
         <div style={{ position: 'relative', width: '100%', paddingBottom: '100%', background: '#1C1E23', overflow: 'hidden' }}>

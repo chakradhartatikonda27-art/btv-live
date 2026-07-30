@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import { LayoutDashboard, Video, FileText, Calendar, Users, Newspaper, Sun, Briefcase, Building2, Settings } from 'lucide-react';
+import { LayoutDashboard, Video, FileText, Calendar, Users, Newspaper, Sun, Briefcase, Building2, Settings, UserCircle } from 'lucide-react';
 
 const NAV_ITEMS = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
@@ -11,6 +11,7 @@ const NAV_ITEMS = [
   { href: '/admin/submissions', label: 'Submissions', icon: FileText },
   { href: '/admin/events', label: 'Events', icon: Calendar },
   { href: '/admin/team', label: 'Team', icon: Users },
+  { href: '/admin/about-team', label: 'About Team', icon: UserCircle },
   { href: '/admin/settings', label: 'Settings', icon: Settings },
 ];
 

@@ -65,7 +65,7 @@ export default function OpportunitiesPage() {
             {opportunities.map((opp) => {
               const Icon = TYPE_ICONS[opp.type] || Briefcase;
               return (
-                <div key={opp.id} style={{ padding: '20px', borderRadius: '12px', background: '#141619', border: '1px solid #252830', transition: 'border-color 0.2s' }}>
+                <div key={opp.id} className='btv-card' style={{ padding: '20px', borderRadius: '12px', background: '#141619', border: '1px solid #252830' }}>
                   <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
                     {/* Icon */}
                     <div style={{ flexShrink: 0, width: '44px', height: '44px', borderRadius: '10px', background: TYPE_COLORS[opp.type] + '20', border: '1px solid ' + TYPE_COLORS[opp.type] + '40', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

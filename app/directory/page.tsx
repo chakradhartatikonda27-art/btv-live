@@ -82,7 +82,7 @@ export default function DirectoryPage() {
         ) : (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
             {filtered.map((biz) => (
-              <div key={biz.id} style={{ borderRadius: '12px', overflow: 'hidden', background: '#141619', border: '1px solid ' + (biz.featured ? 'rgba(212,168,50,0.4)' : '#252830') }}>
+              <div key={biz.id} className='btv-card' style={{ borderRadius: '12px', overflow: 'hidden', background: '#141619', border: '1px solid ' + (biz.featured ? 'rgba(212,168,50,0.4)' : '#252830') }}>
                 
                 {/* Cover */}
                 <div style={{ height: '140px', background: '#1C1E23', position: 'relative', overflow: 'hidden' }}>

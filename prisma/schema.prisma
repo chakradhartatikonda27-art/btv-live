@@ -425,3 +425,18 @@ model SiteSettings {
 
   @@map("site_settings")
 }
+
+model AboutTeam {
+  id        String   @id @default(cuid())
+  name      String
+  role      String
+  bio       String?
+  photoUrl  String?
+  photoType String   @default("upload") // "upload" or "url"
+  order     Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("about_team")
+}

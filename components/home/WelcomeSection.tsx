@@ -43,7 +43,7 @@ export default async function WelcomeSection() {
             { icon: '🏆', title: 'Awards & Events', desc: 'Prestigious business excellence awards, conferences, and live events that celebrate extraordinary achievement.' },
             { icon: '📰', title: 'Business Newsroom', desc: 'Daily business news, morning digest, job opportunities, and a local business directory — all in one platform.' },
           ].map((pillar) => (
-            <div key={pillar.title} style={{ padding: '24px', borderRadius: '16px', background: '#141619', border: '1px solid #252830', textAlign: 'center' }}>
+            <div key={pillar.title} className='btv-card' style={{ padding: '24px', borderRadius: '16px', background: '#141619', border: '1px solid #252830', textAlign: 'center' }}>
               <div style={{ fontSize: '32px', marginBottom: '12px' }}>{pillar.icon}</div>
               <h3 style={{ color: '#EDEEF0', fontSize: '16px', fontFamily: 'Georgia, serif', margin: '0 0 8px' }}>{pillar.title}</h3>
               <p style={{ color: '#7A7D85', fontSize: '13px', lineHeight: 1.6, margin: 0 }}>{pillar.desc}</p>
