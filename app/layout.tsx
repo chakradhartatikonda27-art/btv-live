@@ -2,8 +2,6 @@ import type { Metadata } from 'next';
 import { Inter, Sora } from 'next/font/google';
 import './globals.css';
 import ConditionalLayout from '@/components/layout/ConditionalLayout';
-import LiveTicker from '@/components/layout/LiveTicker';
-import FloatingSocials from '@/components/layout/FloatingSocials';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 const sora = Sora({ subsets: ['latin'], variable: '--font-sora', display: 'swap' });
@@ -26,7 +24,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ConditionalLayout>
           {children}
         </ConditionalLayout>
-        <FloatingSocials />
       </body>
     </html>
   );

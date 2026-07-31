@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import FloatingSocials from '@/components/layout/FloatingSocials';
 
 export default function ConditionalLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -19,6 +20,7 @@ export default function ConditionalLayout({ children }: { children: React.ReactN
         {children}
       </div>
       <Footer />
+      <FloatingSocials />
     </>
   );
 }
