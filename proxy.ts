@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
   if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
     const adminAuth = req.cookies.get('admin_auth');
