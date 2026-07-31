@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import { Inter, Sora } from 'next/font/google';
 import './globals.css';
+import ConditionalLayout from '@/components/layout/ConditionalLayout';
+import LiveTicker from '@/components/layout/LiveTicker';
+import FloatingSocials from '@/components/layout/FloatingSocials';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 const sora = Sora({ subsets: ['latin'], variable: '--font-sora', display: 'swap' });
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://btv-live-72s3.vercel.app'),
@@ -21,10 +22,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <body className='min-h-screen antialiased' style={{ background: '#08090B', color: '#EDEEF0', paddingTop: '88px' }}>
-        <Navbar />
-        {children}
-        <Footer />
+      <body className={`min-h-screen antialiased ${inter.variable} ${sora.variable}`} style={{ background: '#08090B', color: '#EDEEF0', fontFamily: 'var(--font-inter, sans-serif)' }}>
+        <ConditionalLayout>
+          {children}
+        </ConditionalLayout>
+        <FloatingSocials />
       </body>
     </html>
   );
