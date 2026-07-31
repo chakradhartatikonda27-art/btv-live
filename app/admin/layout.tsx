@@ -36,8 +36,8 @@ function PublishButton() {
 }
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
-  if (pathname === '/admin/login') return <>{children}</>;
+  const isLoginPage = pathname === '/admin/login';
+  if (isLoginPage) return <div style={{ minHeight: '100vh', background: '#08090B', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{children}</div>;
   return (
     <div style={{ minHeight: '100vh', display: 'flex', background: '#08090B', flexDirection: 'row' }}>
       <aside style={{ width: '200px', flexShrink: 0, borderRight: '1px solid #1C1E23', background: '#0D0F12', display: 'flex', flexDirection: 'column', minWidth: '160px' }}>
