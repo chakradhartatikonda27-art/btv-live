@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { LayoutDashboard, Video, FileText, Calendar, Users, Newspaper, Sun, Briefcase, Building2, Settings, UserCircle } from 'lucide-react';
 
@@ -35,6 +36,8 @@ function PublishButton() {
 }
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
+  if (pathname === '/admin/login') return <>{children}</>;
   return (
     <div style={{ minHeight: '100vh', display: 'flex', background: '#08090B', flexDirection: 'row' }}>
       <aside style={{ width: '200px', flexShrink: 0, borderRight: '1px solid #1C1E23', background: '#0D0F12', display: 'flex', flexDirection: 'column', minWidth: '160px' }}>
