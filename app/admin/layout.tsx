@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -41,6 +41,19 @@ function PublishButton() {
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const [authed, setAuthed] = useState(false);
+  const [checking, setChecking] = useState(true);
+
+  useEffect(() => {
+    const auth = localStorage.getItem('btv_admin_auth');
+    if (auth === 'btv_admin_2026') {
+      setAuthed(true);
+    } else if (pathname !== '/admin/login') {
+      router.push('/admin/login');
+    }
+    setChecking(false);
+  }, [pathname]);
 
   if (pathname === '/admin/login') {
     return (
@@ -49,6 +62,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </div>
     );
   }
+
+  if (checking) return <div style={{ minHeight: '100vh', background: '#08090B' }} />;
+  if (!authed) return null;
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', background: '#08090B' }}>
@@ -83,9 +99,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <Link href='/' style={{ display: 'block', color: '#7A7D85', fontSize: '12px', textDecoration: 'none', marginBottom: '8px' }}>
             ← View Site
           </Link>
-          <Link href='/api/admin/logout' style={{ display: 'block', color: '#CC0000', fontSize: '12px', textDecoration: 'none', fontWeight: '600' }}>
+          <button onClick={() => { localStorage.removeItem('btv_admin_auth'); window.location.href = '/admin/login'; }} style={{ display: 'block', color: '#CC0000', fontSize: '12px', fontWeight: '600', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
             Sign Out
-          </Link>
+          </button>
         </div>
       </aside>
 
