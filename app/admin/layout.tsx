@@ -4,20 +4,21 @@ import { useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { LayoutDashboard, Video, FileText, Calendar, Users, Newspaper, Sun, Briefcase, Building2, Settings, UserCircle } from 'lucide-react';
+import { LayoutDashboard, Video, FileText, Calendar, Users, Newspaper, Sun, Briefcase, Building2, Settings, UserCircle, Shield } from 'lucide-react';
 
-const NAV_ITEMS = [
-  { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/admin/interviews', label: 'Interviews', icon: Video },
-  { href: '/admin/articles', label: 'Newsroom', icon: Newspaper },
-  { href: '/admin/morning-digest', label: 'Morning Digest', icon: Sun },
-  { href: '/admin/opportunities', label: 'Opportunities', icon: Briefcase },
-  { href: '/admin/directory', label: 'Directory', icon: Building2 },
-  { href: '/admin/submissions', label: 'Submissions', icon: FileText },
-  { href: '/admin/events', label: 'Events', icon: Calendar },
-  { href: '/admin/team', label: 'Team', icon: Users },
-  { href: '/admin/about-team', label: 'About Team', icon: UserCircle },
-  { href: '/admin/settings', label: 'Settings', icon: Settings },
+const ALL_NAV_ITEMS = [
+  { href: '/admin', label: 'Dashboard', icon: LayoutDashboard, roles: ['SUPER_ADMIN', 'MANAGER', 'REPORTER', 'EXECUTIVE'] },
+  { href: '/admin/interviews', label: 'Interviews', icon: Video, roles: ['SUPER_ADMIN', 'MANAGER', 'REPORTER'] },
+  { href: '/admin/articles', label: 'Newsroom', icon: Newspaper, roles: ['SUPER_ADMIN', 'MANAGER', 'REPORTER'] },
+  { href: '/admin/morning-digest', label: 'Morning Digest', icon: Sun, roles: ['SUPER_ADMIN', 'MANAGER', 'REPORTER'] },
+  { href: '/admin/opportunities', label: 'Opportunities', icon: Briefcase, roles: ['SUPER_ADMIN', 'MANAGER', 'EXECUTIVE'] },
+  { href: '/admin/directory', label: 'Directory', icon: Building2, roles: ['SUPER_ADMIN', 'MANAGER', 'EXECUTIVE'] },
+  { href: '/admin/events', label: 'Events', icon: Calendar, roles: ['SUPER_ADMIN', 'MANAGER', 'EXECUTIVE'] },
+  { href: '/admin/submissions', label: 'Submissions', icon: FileText, roles: ['SUPER_ADMIN', 'MANAGER'] },
+  { href: '/admin/users', label: 'Users', icon: Shield, roles: ['SUPER_ADMIN', 'MANAGER'] },
+  { href: '/admin/team', label: 'Team', icon: Users, roles: ['SUPER_ADMIN'] },
+  { href: '/admin/about-team', label: 'About Team', icon: UserCircle, roles: ['SUPER_ADMIN'] },
+  { href: '/admin/settings', label: 'Settings', icon: Settings, roles: ['SUPER_ADMIN'] },
 ];
 
 function PublishButton() {
@@ -42,13 +43,20 @@ function PublishButton() {
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [role, setRole] = useState('SUPER_ADMIN');
+  const [name, setName] = useState('Admin');
   const [authed, setAuthed] = useState(false);
   const [checking, setChecking] = useState(true);
 
   useEffect(() => {
     const auth = localStorage.getItem('btv_admin_auth');
-    if (auth === 'btv_admin_2026') {
+    const storedRole = localStorage.getItem('btv_admin_role') || 'SUPER_ADMIN';
+    const storedName = localStorage.getItem('btv_admin_name') || 'Admin';
+    
+    if (auth) {
       setAuthed(true);
+      setRole(storedRole);
+      setName(storedName);
     } else if (pathname !== '/admin/login') {
       router.push('/admin/login');
     }
@@ -57,7 +65,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   if (pathname === '/admin/login') {
     return (
-      <div style={{ minHeight: '100vh', background: '#08090B', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ minHeight: '100vh', background: '#08090B' }}>
         {children}
       </div>
     );
@@ -66,28 +74,49 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   if (checking) return <div style={{ minHeight: '100vh', background: '#08090B' }} />;
   if (!authed) return null;
 
+  const navItems = ALL_NAV_ITEMS.filter(item => item.roles.includes(role));
+
+  const ROLE_COLORS: Record<string, string> = {
+    SUPER_ADMIN: '#D4A832',
+    MANAGER: '#3B82F6',
+    REPORTER: '#22C55E',
+    EXECUTIVE: '#8B5CF6',
+  };
+
+  const ROLE_LABELS: Record<string, string> = {
+    SUPER_ADMIN: 'Super Admin',
+    MANAGER: 'Manager',
+    REPORTER: 'Reporter',
+    EXECUTIVE: 'Executive',
+  };
+
   return (
     <div style={{ minHeight: '100vh', display: 'flex', background: '#08090B' }}>
       {/* Sidebar */}
       <aside style={{ width: '220px', flexShrink: 0, background: '#0D0F12', borderRight: '1px solid #1C1E23', display: 'flex', flexDirection: 'column', position: 'fixed', top: 0, left: 0, bottom: 0, zIndex: 100, overflowY: 'auto' }}>
         {/* Logo */}
-        <div style={{ padding: '20px 16px', borderBottom: '1px solid #1C1E23' }}>
-          <Link href='/' style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-            <Image src='/btv-logo.jpg' alt='BTV LIVE' width={36} height={36} style={{ borderRadius: '6px', objectFit: 'contain' }} />
+        <div style={{ padding: '16px', borderBottom: '1px solid #1C1E23' }}>
+          <Link href='/' style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', marginBottom: '12px' }}>
+            <Image src='/btv-logo.jpg' alt='BTV LIVE' width={32} height={32} style={{ borderRadius: '6px', objectFit: 'contain' }} />
             <div>
-              <p style={{ color: '#EDEEF0', fontWeight: '700', fontSize: '14px', margin: 0 }}>BTV LIVE</p>
-              <p style={{ color: '#CC0000', fontSize: '9px', fontFamily: 'monospace', letterSpacing: '0.15em', textTransform: 'uppercase', margin: 0, fontWeight: '700' }}>Admin Panel</p>
+              <p style={{ color: '#EDEEF0', fontWeight: '700', fontSize: '13px', margin: 0 }}>BTV LIVE</p>
+              <p style={{ color: '#CC0000', fontSize: '9px', fontFamily: 'monospace', letterSpacing: '0.1em', textTransform: 'uppercase', margin: 0 }}>CMS</p>
             </div>
           </Link>
+          {/* User info */}
+          <div style={{ background: '#141619', borderRadius: '8px', padding: '8px 10px', border: '1px solid #252830' }}>
+            <p style={{ color: '#EDEEF0', fontSize: '12px', fontWeight: '600', margin: '0 0 2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{name}</p>
+            <span style={{ fontSize: '10px', fontWeight: '700', color: ROLE_COLORS[role], fontFamily: 'monospace' }}>{ROLE_LABELS[role]}</span>
+          </div>
         </div>
 
         {/* Nav */}
-        <nav style={{ padding: '12px 8px', flex: 1 }}>
-          {NAV_ITEMS.map((item) => {
+        <nav style={{ padding: '8px', flex: 1 }}>
+          {navItems.map((item) => {
             const isActive = pathname === item.href || (item.href !== '/admin' && pathname.startsWith(item.href));
             return (
-              <Link key={item.href} href={item.href} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '8px 12px', borderRadius: '8px', textDecoration: 'none', color: isActive ? '#EDEEF0' : '#7A7D85', fontSize: '13px', fontWeight: isActive ? '600' : '500', marginBottom: '2px', background: isActive ? 'rgba(204,0,0,0.15)' : 'transparent', borderLeft: isActive ? '2px solid #CC0000' : '2px solid transparent' }}>
-                <item.icon size={15} color={isActive ? '#CC0000' : '#5C6070'} />
+              <Link key={item.href} href={item.href} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '8px 10px', borderRadius: '8px', textDecoration: 'none', color: isActive ? '#EDEEF0' : '#7A7D85', fontSize: '13px', fontWeight: isActive ? '600' : '500', marginBottom: '2px', background: isActive ? 'rgba(204,0,0,0.12)' : 'transparent', borderLeft: isActive ? '2px solid #CC0000' : '2px solid transparent' }}>
+                <item.icon size={14} color={isActive ? '#CC0000' : '#5C6070'} />
                 {item.label}
               </Link>
             );
@@ -95,11 +124,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </nav>
 
         {/* Bottom */}
-        <div style={{ padding: '12px 16px', borderTop: '1px solid #1C1E23' }}>
-          <Link href='/' style={{ display: 'block', color: '#7A7D85', fontSize: '12px', textDecoration: 'none', marginBottom: '8px' }}>
-            ← View Site
-          </Link>
-          <button onClick={() => { localStorage.removeItem('btv_admin_auth'); window.location.href = '/admin/login'; }} style={{ display: 'block', color: '#CC0000', fontSize: '12px', fontWeight: '600', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+        <div style={{ padding: '10px 14px', borderTop: '1px solid #1C1E23' }}>
+          <Link href='/' style={{ display: 'block', color: '#7A7D85', fontSize: '12px', textDecoration: 'none', marginBottom: '8px' }}>← View Site</Link>
+          <button onClick={() => { localStorage.removeItem('btv_admin_auth'); localStorage.removeItem('btv_admin_role'); localStorage.removeItem('btv_admin_name'); window.location.href = '/admin/login'; }} style={{ display: 'block', color: '#CC0000', fontSize: '12px', fontWeight: '600', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
             Sign Out
           </button>
         </div>
@@ -114,14 +141,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <p style={{ color: '#EDEEF0', fontSize: '13px', fontWeight: '600', margin: 0 }}>BTV LIVE CMS</p>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <PublishButton />
+            {role === 'SUPER_ADMIN' && <PublishButton />}
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
               <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#22c55e' }} />
               <p style={{ color: '#7A7D85', fontSize: '11px', margin: 0 }}>Online</p>
             </div>
           </div>
         </div>
-
         {children}
       </main>
     </div>

@@ -227,7 +227,8 @@ model State {
   name      String     @unique
   createdAt DateTime   @default(now())
   districts District[]
-  members   TeamMember[]
+  members      TeamMember[]
+  adminUsers   AdminUser[]
   @@map("states")
 }
 
@@ -238,7 +239,8 @@ model District {
   state     State      @relation(fields: [stateId], references: [id])
   createdAt DateTime   @default(now())
   cities    City[]
-  members   TeamMember[]
+  members      TeamMember[]
+  adminUsers   AdminUser[]
   @@map("districts")
 }
 
@@ -248,7 +250,8 @@ model City {
   districtId String
   district   District   @relation(fields: [districtId], references: [id])
   createdAt  DateTime   @default(now())
-  members    TeamMember[]
+  members      TeamMember[]
+  adminUsers   AdminUser[]
   @@map("cities")
 }
 
@@ -439,4 +442,36 @@ model AboutTeam {
   updatedAt DateTime @updatedAt
 
   @@map("about_team")
+}
+
+enum AdminRole {
+  SUPER_ADMIN
+  MANAGER
+  REPORTER
+  EXECUTIVE
+}
+
+model AdminUser {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  password     String
+  role         AdminRole @default(REPORTER)
+  active       Boolean   @default(true)
+  
+  // Location assignment
+  stateId      String?
+  districtId   String?
+  cityId       String?
+  state        State?    @relation(fields: [stateId], references: [id])
+  district     District? @relation(fields: [districtId], references: [id])
+  city         City?     @relation(fields: [cityId], references: [id])
+  
+  // Who created this user
+  createdById  String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  lastLoginAt  DateTime?
+
+  @@map("admin_users")
 }

@@ -1,22 +1,57 @@
 import { NextRequest, NextResponse } from 'next/server';
-
-const ADMIN_PASSWORD = 'btv@admin2026';
+import { prisma } from '@/lib/prisma';
+import { verifyPassword } from '@/lib/auth';
 
 export async function POST(req: NextRequest) {
-  const { password } = await req.json();
+  try {
+    const { email, password } = await req.json();
 
-  if (password !== ADMIN_PASSWORD) {
-    return NextResponse.json({ error: 'Invalid password' }, { status: 401 });
+    // Check super admin first
+    if (email === 'admin@btvlive.net' && password === 'btv@admin2026') {
+      const res = NextResponse.json({ ok: true, role: 'SUPER_ADMIN', name: 'Super Admin' });
+      res.cookies.set('admin_token', 'super_admin', {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'none',
+        maxAge: 60 * 60 * 24 * 7,
+        path: '/',
+      });
+      return res;
+    }
+
+    // Check regular admin users
+    const user = await prisma.adminUser.findUnique({ where: { email } });
+    if (!user || !user.active) {
+      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
+    }
+
+    const valid = await verifyPassword(password, user.password);
+    if (!valid) {
+      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
+    }
+
+    // Update last login
+    await prisma.adminUser.update({
+      where: { id: user.id },
+      data: { lastLoginAt: new Date() },
+    });
+
+    const res = NextResponse.json({ 
+      ok: true, 
+      role: user.role, 
+      name: user.name,
+      id: user.id,
+    });
+    res.cookies.set('admin_token', user.id, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+      maxAge: 60 * 60 * 24 * 7,
+      path: '/',
+    });
+    return res;
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
-
-  const res = NextResponse.json({ ok: true });
-  res.cookies.set('admin_auth', 'btv_admin_2026', {
-    httpOnly: true,
-    secure: true,
-    sameSite: 'none',
-    maxAge: 60 * 60 * 24 * 7,
-    path: '/',
-  });
-
-  return res;
 }
