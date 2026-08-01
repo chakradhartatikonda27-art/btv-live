@@ -1,6 +1,6 @@
-import { prisma } from '@/lib/prisma';
+'use client';
 
-const DEFAULT_ITEMS = [
+const TICKER_ITEMS = [
   'BTV Business Excellence Awards 2025 — Hyderabad, 15 Sept ◆',
   'BTV LIVE is looking for Reporters & Field Agents across AP and Telangana ◆',
   'Join BTV LIVE as a Business Development Agent — Earn while you grow ◆',
@@ -9,10 +9,8 @@ const DEFAULT_ITEMS = [
   'BTV LIVE — Where Success Goes Live. Legacy Lives Forever. ◆',
 ];
 
-export default async function LiveTicker() {
-  const settings = await prisma.siteSettings.findFirst().catch(() => null);
-  const items = settings?.tickerMessages?.length ? settings.tickerMessages : DEFAULT_ITEMS;
-  const doubled = [...items, ...items];
+export default function LiveTicker() {
+  const doubled = [...TICKER_ITEMS, ...TICKER_ITEMS];
 
   return (
     <div style={{ background: '#CC0000', height: '28px', display: 'flex', alignItems: 'center', overflow: 'hidden', flexShrink: 0 }}>
