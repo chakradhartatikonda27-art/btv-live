@@ -424,6 +424,8 @@ model SiteSettings {
   contactEmail    String   @default("btvliveindia@gmail.com")
   contactPhone    String   @default("+91-9885126368")
   theme           String   @default("dark")
+  youtubeVideos   String[] @default([])
+  instagramReels  String[] @default([])
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 

@@ -25,6 +25,8 @@ export default function AdminSettingsPage() {
     contactEmail: 'btvliveindia@gmail.com',
     contactPhone: '+91-9885126368',
     theme: 'dark',
+    youtubeVideos: 'dyAeSpDlluw',
+    instagramReels: 'https://www.instagram.com/reel/DbGnjyWk0HY/',
     // Ticker
     tickerMessages: 'BTV Business Excellence Awards 2025 — Hyderabad, 15 Sept ◆\nBTV LIVE is looking for Reporters & Field Agents across AP and Telangana ◆\nJoin BTV LIVE as a Business Development Agent — Earn while you grow ◆',
   });
@@ -36,6 +38,8 @@ export default function AdminSettingsPage() {
           contactEmail: d.settings.contactEmail || 'btvliveindia@gmail.com',
           contactPhone: d.settings.contactPhone || '+91-9885126368',
           theme: d.settings.theme || 'dark',
+          youtubeVideos: (d.settings.youtubeVideos || ['dyAeSpDlluw']).join('\n'),
+          instagramReels: (d.settings.instagramReels || ['https://www.instagram.com/reel/DbGnjyWk0HY/']).join('\n'),
           tickerMessages: (d.settings.tickerMessages || []).join('\n') }));
       }
     });
@@ -56,6 +60,8 @@ export default function AdminSettingsPage() {
         awardCeremonies: parseInt(form.awardCeremonies),
         industriesCovered: parseInt(form.industriesCovered),
         tickerMessages: form.tickerMessages.split('\n').filter(Boolean),
+        youtubeVideos: form.youtubeVideos.split('\n').map((v: string) => v.trim()).filter(Boolean),
+        instagramReels: form.instagramReels.split('\n').map((v: string) => v.trim()).filter(Boolean),
       }),
     });
     setLoading(false);
@@ -100,7 +106,21 @@ export default function AdminSettingsPage() {
             <div><label style={labelStyle}>YouTube Channel URL</label><input type='url' value={form.youtubeUrl} onChange={(e) => update('youtubeUrl', e.target.value)} style={inputStyle} /></div>
             <div><label style={labelStyle}>Instagram URL</label><input type='url' value={form.instagramUrl} onChange={(e) => update('instagramUrl', e.target.value)} style={inputStyle} /></div>
             <div><label style={labelStyle}>WhatsApp Number (with country code)</label><input type='text' value={form.whatsappNumber} onChange={(e) => update('whatsappNumber', e.target.value)} placeholder='+919876543210' style={inputStyle} /></div>
-            <p style={{ color: '#7A7D85', fontSize: '12px', margin: 0 }}>These links are used in the navbar, footer, and floating social buttons.</p>
+            <p style={{ color: '#7A7D85', fontSize: '12px', margin: '0 0 4px' }}>These links are used in the navbar, footer, and floating social buttons.</p>
+            
+            <div style={{ borderTop: '1px solid #252830', paddingTop: '16px' }}>
+              <p style={{ color: '#D4A832', fontSize: '12px', fontWeight: '600', margin: '0 0 12px', textTransform: 'uppercase', letterSpacing: '0.1em', fontFamily: 'monospace' }}>YouTube Videos</p>
+              <label style={labelStyle}>YouTube Video IDs (one per line)</label>
+              <textarea value={form.youtubeVideos} onChange={(e) => update('youtubeVideos', e.target.value)} rows={5} placeholder={'dyAeSpDlluw\nabc123xyz\n...'} style={{ ...inputStyle, resize: 'vertical' as const, fontFamily: 'monospace', fontSize: '12px' }} />
+              <p style={{ color: '#5C6070', fontSize: '11px', margin: '4px 0 0' }}>Enter YouTube video ID only (e.g. dyAeSpDlluw from youtube.com/shorts/dyAeSpDlluw)</p>
+            </div>
+
+            <div style={{ borderTop: '1px solid #252830', paddingTop: '16px' }}>
+              <p style={{ color: '#D4A832', fontSize: '12px', fontWeight: '600', margin: '0 0 12px', textTransform: 'uppercase', letterSpacing: '0.1em', fontFamily: 'monospace' }}>Instagram Reels</p>
+              <label style={labelStyle}>Instagram Reel URLs (one per line)</label>
+              <textarea value={form.instagramReels} onChange={(e) => update('instagramReels', e.target.value)} rows={5} placeholder={'https://www.instagram.com/reel/DbGnjyWk0HY/'} style={{ ...inputStyle, resize: 'vertical' as const, fontFamily: 'monospace', fontSize: '12px' }} />
+              <p style={{ color: '#5C6070', fontSize: '11px', margin: '4px 0 0' }}>Enter full Instagram reel URL</p>
+            </div>
           </>}
 
           {/* Impact Counter */}

@@ -18,7 +18,7 @@ const ALL_NAV_ITEMS = [
   { href: '/admin/users', label: 'Users', icon: Shield, roles: ['SUPER_ADMIN', 'MANAGER'] },
   { href: '/admin/team', label: 'Team', icon: Users, roles: ['SUPER_ADMIN'] },
   { href: '/admin/about-team', label: 'About Team', icon: UserCircle, roles: ['SUPER_ADMIN'] },
-  { href: '/admin/settings', label: 'Settings', icon: Settings, roles: ['SUPER_ADMIN'] },
+  { href: '/admin/settings', label: 'Settings', icon: Settings, roles: ['SUPER_ADMIN', 'MANAGER'] },
 ];
 
 function PublishButton() {

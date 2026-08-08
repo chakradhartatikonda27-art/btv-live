@@ -30,6 +30,8 @@ export async function POST(req: NextRequest) {
       contactEmail: body.contactEmail,
       contactPhone: body.contactPhone,
       theme: body.theme || 'dark',
+      youtubeVideos: body.youtubeVideos || [],
+      instagramReels: body.instagramReels || [],
     };
     if (existing) {
       await prisma.siteSettings.update({ where: { id: existing.id }, data });
