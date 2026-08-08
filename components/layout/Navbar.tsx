@@ -43,9 +43,9 @@ export default function Navbar() {
 
       <header style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 9999,
-        background: mobileOpen ? 'rgba(8,9,11,0.99)' : scrolled ? 'rgba(8,9,11,0.95)' : 'transparent',
+        background: mobileOpen ? 'var(--bg-primary)' : scrolled ? 'var(--navbar-bg)' : 'transparent',
         backdropFilter: 'blur(12px)',
-        borderBottom: '1px solid rgba(28,30,35,0.4)',
+        borderBottom: scrolled ? '1px solid var(--border-light)' : '1px solid transparent',
         transition: 'background 0.3s',
       }}>
         <div style={{ height: '2px', background: 'linear-gradient(135deg, #D4A832, #F5D98A, #B8891A)' }} />
@@ -68,7 +68,7 @@ export default function Navbar() {
           {/* Desktop nav */}
           <nav className="btv-desktop-nav" style={{ alignItems: 'center', gap: '32px' }}>
             {NAV_LINKS.map((link) => (
-              <Link key={link.href} href={link.href} style={{ fontSize: '14px', fontWeight: '500', textDecoration: 'none', color: pathname.startsWith(link.href) ? '#E8C35A' : '#B0B3BB' }}>
+              <Link key={link.href} href={link.href} style={{ fontSize: '14px', fontWeight: '500', textDecoration: 'none', color: pathname.startsWith(link.href) ? 'var(--accent-gold)' : 'var(--text-muted)' }}>
                 {link.label}
               </Link>
             ))}

@@ -23,11 +23,11 @@ export default async function ImpactCounter() {
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '60px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(212,168,50,0.08)', border: '1px solid rgba(212,168,50,0.2)', borderRadius: '999px', padding: '6px 18px', marginBottom: '20px' }}>
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#D4A832', display: 'inline-block' }} />
-            <span style={{ color: '#D4A832', fontFamily: 'monospace', fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: '700' }}>The BTV LIVE Impact</span>
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--accent-gold)', display: 'inline-block' }} />
+            <span style={{ color: 'var(--accent-gold)', fontFamily: 'monospace', fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: '700' }}>The BTV LIVE Impact</span>
           </div>
-          <h2 style={{ fontFamily: 'var(--font-sora, Georgia, serif)', fontSize: 'clamp(32px, 6vw, 56px)', color: '#EDEEF0', margin: 0, letterSpacing: '-0.03em', fontWeight: '800' }}>
-            Numbers Don't <span style={{ color: '#D4A832' }}>Lie.</span>
+          <h2 style={{ fontFamily: 'var(--font-sora, Georgia, serif)', fontSize: 'clamp(32px, 6vw, 56px)', color: 'var(--text-primary)', margin: 0, letterSpacing: '-0.03em', fontWeight: '800' }}>
+            Numbers Don't <span style={{ color: 'var(--accent-gold)' }}>Lie.</span>
           </h2>
         </div>
 
@@ -48,16 +48,16 @@ export default async function ImpactCounter() {
               
 
               {/* Number */}
-              <div style={{ fontFamily: 'var(--font-sora, Georgia, serif)', fontSize: 'clamp(42px, 8vw, 64px)', fontWeight: '800', color: '#EDEEF0', lineHeight: 1, marginBottom: '4px', letterSpacing: '-0.03em' }}>
-                <span style={{ color: '#D4A832' }}>{stat.value}</span>
+              <div style={{ fontFamily: 'var(--font-sora, Georgia, serif)', fontSize: 'clamp(42px, 8vw, 64px)', fontWeight: '800', color: 'var(--text-primary)', lineHeight: 1, marginBottom: '4px', letterSpacing: '-0.03em' }}>
+                <span style={{ color: 'var(--accent-gold)' }}>{stat.value}</span>
                 <span style={{ color: '#8C6510', fontSize: '0.5em' }}>{stat.suffix}</span>
               </div>
               
               {/* Label */}
-              <p style={{ color: '#EDEEF0', fontSize: '15px', fontWeight: '600', margin: '0 0 6px', fontFamily: 'var(--font-sora, sans-serif)' }}>{stat.label}</p>
+              <p style={{ color: 'var(--text-primary)', fontSize: '15px', fontWeight: '600', margin: '0 0 6px', fontFamily: 'var(--font-sora, sans-serif)' }}>{stat.label}</p>
               
               {/* Description */}
-              <p style={{ color: '#5C6070', fontSize: '12px', margin: 0, fontFamily: 'monospace', letterSpacing: '0.05em', textTransform: 'uppercase' }}>{stat.desc}</p>
+              <p style={{ color: 'var(--text-faint)', fontSize: '12px', margin: 0, fontFamily: 'monospace', letterSpacing: '0.05em', textTransform: 'uppercase' }}>{stat.desc}</p>
             </div>
           ))}
         </div>

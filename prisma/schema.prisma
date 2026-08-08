@@ -423,6 +423,7 @@ model SiteSettings {
   footerTagline   String   @default("Where Success Goes Live... Legacy Lives Forever.")
   contactEmail    String   @default("btvliveindia@gmail.com")
   contactPhone    String   @default("+91-9885126368")
+  theme           String   @default("dark")
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 

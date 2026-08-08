@@ -135,7 +135,7 @@ export default function NewsroomPage() {
                 <button onClick={() => setSaved((p) => ({ ...p, [article.id]: !p[article.id] }))} style={{ background: 'none', border: 'none', cursor: 'pointer', color: saved[article.id] ? '#D4A832' : '#6B7280', padding: '6px 16px', marginLeft: 'auto' }}>
                   <Bookmark size={16} fill={saved[article.id] ? '#D4A832' : 'none'} />
                 </button>
-                <button onClick={() => handleShare(article)} style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'none', border: 'none', cursor: 'pointer', color: '#D4A832', fontSize: '13px', fontWeight: '600', padding: '6px 0' }}>
+                <button onClick={() => handleShare(article)} style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--accent-gold)', fontSize: '13px', fontWeight: '600', padding: '6px 0' }}>
                   <Share2 size={15} />
                   Share
                 </button>

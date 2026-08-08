@@ -24,6 +24,7 @@ export default function AdminSettingsPage() {
     footerTagline: 'Where Success Goes Live... Legacy Lives Forever.',
     contactEmail: 'btvliveindia@gmail.com',
     contactPhone: '+91-9885126368',
+    theme: 'dark',
     // Ticker
     tickerMessages: 'BTV Business Excellence Awards 2025 — Hyderabad, 15 Sept ◆\nBTV LIVE is looking for Reporters & Field Agents across AP and Telangana ◆\nJoin BTV LIVE as a Business Development Agent — Earn while you grow ◆',
   });
@@ -34,6 +35,7 @@ export default function AdminSettingsPage() {
         setForm((prev) => ({ ...prev, ...d.settings, 
           contactEmail: d.settings.contactEmail || 'btvliveindia@gmail.com',
           contactPhone: d.settings.contactPhone || '+91-9885126368',
+          theme: d.settings.theme || 'dark',
           tickerMessages: (d.settings.tickerMessages || []).join('\n') }));
       }
     });
@@ -71,6 +73,7 @@ export default function AdminSettingsPage() {
     { id: 'ticker', label: 'Live Ticker' },
     { id: 'footer', label: 'Footer' },
     { id: 'contact', label: 'Contact' },
+    { id: 'theme', label: 'Theme' },
   ];
 
   return (
@@ -130,6 +133,29 @@ export default function AdminSettingsPage() {
             <p style={{ color: '#9A9DA5', fontSize: '13px', margin: 0 }}>Contact details shown in footer and WhatsApp page.</p>
             <div><label style={labelStyle}>Contact Email</label><input type='email' value={form.contactEmail} onChange={(e) => update('contactEmail', e.target.value)} style={inputStyle} /></div>
             <div><label style={labelStyle}>Contact Phone</label><input type='text' value={form.contactPhone} onChange={(e) => update('contactPhone', e.target.value)} style={inputStyle} /></div>
+          </>}
+
+          {/* Theme */}
+          {activeTab === 'theme' && <>
+            <p style={{ color: '#9A9DA5', fontSize: '13px', margin: 0 }}>Choose the website color theme. Changes apply instantly after saving.</p>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div onClick={() => update('theme', 'dark')} style={{ padding: '24px', borderRadius: '12px', border: '2px solid', borderColor: form.theme === 'dark' ? '#D4A832' : '#252830', background: form.theme === 'dark' ? 'rgba(212,168,50,0.05)' : '#1C1E23', cursor: 'pointer', textAlign: 'center' as const }}>
+                <div style={{ width: '100%', height: '80px', borderRadius: '8px', background: '#08090B', border: '1px solid #252830', marginBottom: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ width: '60%', height: '8px', borderRadius: '4px', background: '#D4A832' }} />
+                </div>
+                <p style={{ color: '#EDEEF0', fontSize: '14px', fontWeight: '600', margin: '0 0 4px' }}>Dark Theme</p>
+                <p style={{ color: '#7A7D85', fontSize: '12px', margin: 0 }}>Black background, gold accent</p>
+                {form.theme === 'dark' && <p style={{ color: '#D4A832', fontSize: '11px', margin: '8px 0 0', fontWeight: '700' }}>✓ Active</p>}
+              </div>
+              <div onClick={() => update('theme', 'light')} style={{ padding: '24px', borderRadius: '12px', border: '2px solid', borderColor: form.theme === 'light' ? '#D4A832' : '#252830', background: form.theme === 'light' ? 'rgba(212,168,50,0.05)' : '#1C1E23', cursor: 'pointer', textAlign: 'center' as const }}>
+                <div style={{ width: '100%', height: '80px', borderRadius: '8px', background: '#FFFFFF', border: '1px solid #E2E4E8', marginBottom: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ width: '60%', height: '8px', borderRadius: '4px', background: '#B8891A' }} />
+                </div>
+                <p style={{ color: '#EDEEF0', fontSize: '14px', fontWeight: '600', margin: '0 0 4px' }}>Light Theme</p>
+                <p style={{ color: '#7A7D85', fontSize: '12px', margin: 0 }}>White background, gold accent</p>
+                {form.theme === 'light' && <p style={{ color: '#D4A832', fontSize: '11px', margin: '8px 0 0', fontWeight: '700' }}>✓ Active</p>}
+              </div>
+            </div>
           </>}
 
           {/* Footer */}

@@ -29,6 +29,7 @@ export async function POST(req: NextRequest) {
       footerTagline: body.footerTagline,
       contactEmail: body.contactEmail,
       contactPhone: body.contactPhone,
+      theme: body.theme || 'dark',
     };
     if (existing) {
       await prisma.siteSettings.update({ where: { id: existing.id }, data });

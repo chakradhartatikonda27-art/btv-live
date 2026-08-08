@@ -25,85 +25,85 @@ export default function ContactPage() {
     setLoading(false);
   }
 
-  const inputStyle = { width: '100%', padding: '12px 16px', background: '#141619', border: '1px solid #252830', borderRadius: '10px', color: '#EDEEF0', fontSize: '14px', outline: 'none', boxSizing: 'border-box' as const, transition: 'border-color 0.2s' };
-  const labelStyle = { display: 'block' as const, color: '#D4D6DA', fontSize: '13px', fontWeight: '500' as const, marginBottom: '6px' };
+  const inputStyle = { width: '100%', padding: '12px 16px', background: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '10px', color: 'var(--text-primary)', fontSize: '14px', outline: 'none', boxSizing: 'border-box' as const, transition: 'border-color 0.2s' };
+  const labelStyle = { display: 'block' as const, color: 'var(--text-secondary)', fontSize: '13px', fontWeight: '500' as const, marginBottom: '6px' };
 
   return (
-    <main style={{ minHeight: '100vh', background: '#08090B', paddingTop: '80px', paddingBottom: '60px' }}>
+    <main style={{ minHeight: '100vh', background: 'var(--bg-primary)', paddingTop: '80px', paddingBottom: '60px' }}>
       <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 16px' }}>
         
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <p style={{ color: '#D4A832', fontFamily: 'monospace', fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase', margin: '0 0 12px' }}>Get In Touch</p>
-          <h1 style={{ color: '#EDEEF0', fontSize: 'clamp(28px, 5vw, 48px)', fontFamily: 'Georgia, serif', margin: '0 0 16px' }}>Contact BTV LIVE</h1>
-          <p style={{ color: '#7A7D85', fontSize: '16px', margin: 0 }}>Have a story to share? Want to advertise? We'd love to hear from you.</p>
+          <p style={{ color: 'var(--accent-gold)', fontFamily: 'monospace', fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase', margin: '0 0 12px' }}>Get In Touch</p>
+          <h1 style={{ color: 'var(--text-primary)', fontSize: 'clamp(28px, 5vw, 48px)', fontFamily: 'Georgia, serif', margin: '0 0 16px' }}>Contact BTV LIVE</h1>
+          <p style={{ color: 'var(--text-subtle)', fontSize: '16px', margin: 0 }}>Have a story to share? Want to advertise? We'd love to hear from you.</p>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px' }}>
           
           {/* Contact Info */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            <div style={{ padding: '24px', borderRadius: '16px', background: '#141619', border: '1px solid #252830' }}>
-              <h3 style={{ color: '#EDEEF0', fontSize: '18px', fontFamily: 'Georgia, serif', margin: '0 0 20px' }}>Contact Information</h3>
+            <div style={{ padding: '24px', borderRadius: '16px', background: 'var(--bg-card)', border: '1px solid var(--border-color)' }}>
+              <h3 style={{ color: 'var(--text-primary)', fontSize: '18px', fontFamily: 'Georgia, serif', margin: '0 0 20px' }}>Contact Information</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
                   <span style={{ fontSize: '20px', flexShrink: 0 }}>📧</span>
                   <div>
-                    <p style={{ color: '#9A9DA5', fontSize: '12px', margin: '0 0 4px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Email</p>
-                    <a href='mailto:btvliveindia@gmail.com' style={{ color: '#D4A832', fontSize: '14px', textDecoration: 'none', fontWeight: '500' }}>btvliveindia@gmail.com</a>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '12px', margin: '0 0 4px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Email</p>
+                    <a href='mailto:btvliveindia@gmail.com' style={{ color: 'var(--accent-gold)', fontSize: '14px', textDecoration: 'none', fontWeight: '500' }}>btvliveindia@gmail.com</a>
                   </div>
                 </div>
                 <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
                   <span style={{ fontSize: '20px', flexShrink: 0 }}>📞</span>
                   <div>
-                    <p style={{ color: '#9A9DA5', fontSize: '12px', margin: '0 0 4px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Phone</p>
-                    <a href='tel:+919885126368' style={{ color: '#D4A832', fontSize: '14px', textDecoration: 'none', fontWeight: '500' }}>+91-9885126368</a>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '12px', margin: '0 0 4px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Phone</p>
+                    <a href='tel:+919885126368' style={{ color: 'var(--accent-gold)', fontSize: '14px', textDecoration: 'none', fontWeight: '500' }}>+91-9885126368</a>
                   </div>
                 </div>
                 <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
                   <span style={{ fontSize: '20px', flexShrink: 0 }}>💬</span>
                   <div>
-                    <p style={{ color: '#9A9DA5', fontSize: '12px', margin: '0 0 4px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>WhatsApp</p>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '12px', margin: '0 0 4px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>WhatsApp</p>
                     <a href='https://wa.me/919885126368' target='_blank' rel='noopener noreferrer' style={{ color: '#25D366', fontSize: '14px', textDecoration: 'none', fontWeight: '500' }}>Chat on WhatsApp</a>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div style={{ padding: '24px', borderRadius: '16px', background: '#141619', border: '1px solid #252830' }}>
-              <h3 style={{ color: '#EDEEF0', fontSize: '18px', fontFamily: 'Georgia, serif', margin: '0 0 16px' }}>What We Offer</h3>
+            <div style={{ padding: '24px', borderRadius: '16px', background: 'var(--bg-card)', border: '1px solid var(--border-color)' }}>
+              <h3 style={{ color: 'var(--text-primary)', fontSize: '18px', fontFamily: 'Georgia, serif', margin: '0 0 16px' }}>What We Offer</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {['Business Interviews & Features', 'Award Ceremonies Coverage', 'Corporate Event Coverage', 'Advertisement & Sponsorship', 'Business Directory Listing', 'Morning Digest Sponsorship'].map(item => (
                   <div key={item} style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                    <span style={{ color: '#D4A832', fontSize: '12px' }}>◆</span>
-                    <p style={{ color: '#9A9DA5', fontSize: '13px', margin: 0 }}>{item}</p>
+                    <span style={{ color: 'var(--accent-gold)', fontSize: '12px' }}>◆</span>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '13px', margin: 0 }}>{item}</p>
                   </div>
                 ))}
               </div>
             </div>
 
             <div style={{ padding: '24px', borderRadius: '16px', background: 'linear-gradient(135deg, #0D0F12, #141619)', border: '1px solid rgba(212,168,50,0.2)' }}>
-              <p style={{ color: '#9A9DA5', fontSize: '12px', margin: '0 0 8px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Business Hours</p>
-              <p style={{ color: '#D4D6DA', fontSize: '14px', margin: 0 }}>Monday – Saturday</p>
-              <p style={{ color: '#D4A832', fontSize: '16px', fontWeight: '600', margin: '4px 0 0' }}>9:00 AM – 6:00 PM IST</p>
+              <p style={{ color: 'var(--text-muted)', fontSize: '12px', margin: '0 0 8px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Business Hours</p>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '14px', margin: 0 }}>Monday – Saturday</p>
+              <p style={{ color: 'var(--accent-gold)', fontSize: '16px', fontWeight: '600', margin: '4px 0 0' }}>9:00 AM – 6:00 PM IST</p>
             </div>
           </div>
 
           {/* Contact Form */}
           <div>
             {success ? (
-              <div style={{ padding: '48px 32px', borderRadius: '16px', background: '#141619', border: '1px solid rgba(34,197,94,0.3)', textAlign: 'center' }}>
+              <div style={{ padding: '48px 32px', borderRadius: '16px', background: 'var(--bg-card)', border: '1px solid rgba(34,197,94,0.3)', textAlign: 'center' }}>
                 <p style={{ fontSize: '48px', margin: '0 0 16px' }}>✅</p>
                 <h3 style={{ color: '#22c55e', fontSize: '22px', fontFamily: 'Georgia, serif', margin: '0 0 12px' }}>Message Sent!</h3>
-                <p style={{ color: '#9A9DA5', fontSize: '14px', margin: '0 0 24px' }}>Thank you for reaching out. Our team will get back to you within 24 hours.</p>
-                <button onClick={() => setSuccess(false)} style={{ background: '#D4A832', color: '#08090B', border: 'none', borderRadius: '999px', padding: '10px 24px', fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}>
+                <p style={{ color: 'var(--text-muted)', fontSize: '14px', margin: '0 0 24px' }}>Thank you for reaching out. Our team will get back to you within 24 hours.</p>
+                <button onClick={() => setSuccess(false)} style={{ background: 'var(--accent-gold)', color: '#08090B', border: 'none', borderRadius: '999px', padding: '10px 24px', fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}>
                   Send Another Message
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
-                <div style={{ background: '#141619', border: '1px solid #252830', borderRadius: '16px', padding: '28px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <h3 style={{ color: '#EDEEF0', fontSize: '20px', fontFamily: 'Georgia, serif', margin: 0 }}>Send Us a Message</h3>
+                <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '16px', padding: '28px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <h3 style={{ color: 'var(--text-primary)', fontSize: '20px', fontFamily: 'Georgia, serif', margin: 0 }}>Send Us a Message</h3>
 
                   <div>
                     <label style={labelStyle}>Enquiry Type</label>
@@ -150,7 +150,7 @@ export default function ContactPage() {
                     {loading ? 'Sending...' : 'Send Message →'}
                   </button>
 
-                  <p style={{ color: '#5C6070', fontSize: '12px', textAlign: 'center' as const, margin: 0 }}>
+                  <p style={{ color: 'var(--text-faint)', fontSize: '12px', textAlign: 'center' as const, margin: 0 }}>
                     We respond within 24 business hours
                   </p>
                 </div>

@@ -1,5 +1,52 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
+/* ===== THEME VARIABLES ===== */
+:root, [data-theme="dark"] {
+  --bg-primary: #08090B;
+  --bg-secondary: #0D0F12;
+  --bg-card: #141619;
+  --bg-card-hover: #1C1E23;
+  --border-color: #252830;
+  --border-light: #1C1E23;
+  --text-primary: #EDEEF0;
+  --text-secondary: #D4D6DA;
+  --text-muted: #9A9DA5;
+  --text-subtle: #7A7D85;
+  --text-faint: #5C6070;
+  --accent-gold: #D4A832;
+  --accent-gold-dark: #8C6510;
+  --accent-gold-bg: rgba(212,168,50,0.08);
+  --accent-gold-border: rgba(212,168,50,0.25);
+  --accent-red: #CC0000;
+  --shadow: rgba(0,0,0,0.4);
+  --ticker-bg: #CC0000;
+  --navbar-bg: rgba(8,9,11,0.95);
+  --card-gradient: linear-gradient(135deg, #141619, #1C1E23);
+}
+
+[data-theme="light"] {
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F5F5F7;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F0F0F2;
+  --border-color: #E2E4E8;
+  --border-light: #EBEBED;
+  --text-primary: #0D0F12;
+  --text-secondary: #1C1E23;
+  --text-muted: #4A4D55;
+  --text-subtle: #6A6D75;
+  --text-faint: #8A8D95;
+  --accent-gold: #B8891A;
+  --accent-gold-dark: #8C6510;
+  --accent-gold-bg: rgba(184,137,26,0.08);
+  --accent-gold-border: rgba(184,137,26,0.3);
+  --accent-red: #CC0000;
+  --shadow: rgba(0,0,0,0.1);
+  --ticker-bg: #CC0000;
+  --navbar-bg: rgba(255,255,255,0.95);
+  --card-gradient: linear-gradient(135deg, #FFFFFF, #F5F5F7);
+}
+
 /* Font System */
 :root {
   --font-display: var(--font-sora), 'Georgia', serif;

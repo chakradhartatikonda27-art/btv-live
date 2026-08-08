@@ -26,7 +26,7 @@ export default function Footer() {
   const phone = '+91-9885126368';
   const tagline = 'Where Success Goes Live... Legacy Lives Forever.';
   return (
-    <footer className="bg-obsidian-900 border-t border-obsidian-700">
+    <footer style={{ background: 'var(--bg-secondary)', borderTop: '1px solid var(--border-color)' }}>
       {/* Gold top line */}
       <div className="h-[1px] bg-gold-gradient opacity-40" />
 

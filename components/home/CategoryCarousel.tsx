@@ -24,14 +24,14 @@ export default function CategoryCarousel({ categories }: { categories: any[] }) 
           <Link
             key={cat.id}
             href={'/shows?category=' + cat.slug}
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', padding: '16px 12px', borderRadius: '12px', textDecoration: 'none', background: '#141619', border: '1px solid #252830', textAlign: 'center', transition: 'all 0.3s' }}
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', padding: '16px 12px', borderRadius: '12px', textDecoration: 'none', background: 'var(--bg-card)', border: '1px solid var(--border-color)', textAlign: 'center', transition: 'all 0.3s' }}
           >
-            <div style={{ color: '#D4A832' }}>
+            <div style={{ color: 'var(--accent-gold)' }}>
               <Icon size={24} />
             </div>
             <div>
-              <p style={{ color: '#EDEEF0', fontSize: '12px', fontWeight: '500', margin: '0 0 2px', lineHeight: '1.3' }}>{cat.name}</p>
-              <p style={{ color: '#9A9DA5', fontSize: '11px', margin: 0, fontFamily: 'monospace' }}>{cat._count.interviews} stories</p>
+              <p style={{ color: 'var(--text-primary)', fontSize: '12px', fontWeight: '500', margin: '0 0 2px', lineHeight: '1.3' }}>{cat.name}</p>
+              <p style={{ color: 'var(--text-muted)', fontSize: '11px', margin: 0, fontFamily: 'monospace' }}>{cat._count.interviews} stories</p>
             </div>
           </Link>
         );

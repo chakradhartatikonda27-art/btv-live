@@ -16,7 +16,7 @@ export default function FeaturedStories({ stories }: { stories: any[] }) {
   if (stories.length === 0) {
     return (
       <div style={{ textAlign: 'center', padding: '64px 0' }}>
-        <p style={{ color: '#9A9DA5' }}>No interviews published yet.</p>
+        <p style={{ color: 'var(--text-muted)' }}>No interviews published yet.</p>
       </div>
     );
   }
@@ -26,7 +26,7 @@ export default function FeaturedStories({ stories }: { stories: any[] }) {
       {/* Left arrow */}
       <button
         onClick={() => scroll('left')}
-        className='btv-arrow' style={{ position: 'absolute', left: '-16px', top: '50%', transform: 'translateY(-50%)', zIndex: 10, width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(20,22,25,0.95)', border: '1px solid #252830', cursor: 'pointer', alignItems: 'center', justifyContent: 'center', color: '#D4A832', boxShadow: '0 4px 12px rgba(0,0,0,0.4)' }}
+        className='btv-arrow' style={{ position: 'absolute', left: '-16px', top: '50%', transform: 'translateY(-50%)', zIndex: 10, width: '36px', height: '36px', borderRadius: '50%', background: 'rgba(20,22,25,0.95)', border: '1px solid var(--border-color)', cursor: 'pointer', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-gold)', boxShadow: '0 4px 12px rgba(0,0,0,0.4)' }}
       >
         <ChevronLeft size={18} />
       </button>

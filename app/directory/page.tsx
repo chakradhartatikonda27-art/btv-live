@@ -37,14 +37,14 @@ export default function DirectoryPage() {
   const categories = ['', ...Object.keys(CATEGORY_LABELS)];
 
   return (
-    <main style={{ minHeight: '100vh', background: '#08090B', paddingTop: '80px', paddingBottom: '60px' }}>
+    <main style={{ minHeight: '100vh', background: 'var(--bg-primary)', paddingTop: '80px', paddingBottom: '60px' }}>
       <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 16px' }}>
 
         {/* Header */}
         <div style={{ marginBottom: '32px' }}>
-          <p style={{ color: '#D4A832', fontFamily: 'monospace', fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase', margin: '0 0 8px' }}>BTV LIVE</p>
-          <h1 style={{ color: '#EDEEF0', fontSize: 'clamp(28px, 5vw, 48px)', fontFamily: 'Georgia, serif', margin: '0 0 8px' }}>Business Directory</h1>
-          <p style={{ color: '#7A7D85', fontSize: '14px', margin: 0 }}>Discover trusted businesses across AP and Telangana</p>
+          <p style={{ color: 'var(--accent-gold)', fontFamily: 'monospace', fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase', margin: '0 0 8px' }}>BTV LIVE</p>
+          <h1 style={{ color: 'var(--text-primary)', fontSize: 'clamp(28px, 5vw, 48px)', fontFamily: 'Georgia, serif', margin: '0 0 8px' }}>Business Directory</h1>
+          <p style={{ color: 'var(--text-subtle)', fontSize: '14px', margin: 0 }}>Discover trusted businesses across AP and Telangana</p>
         </div>
 
         {/* Search */}
@@ -54,7 +54,7 @@ export default function DirectoryPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder='Search businesses or cities...'
-            style={{ width: '100%', padding: '12px 16px', background: '#141619', border: '1px solid #252830', borderRadius: '10px', color: '#EDEEF0', fontSize: '14px', outline: 'none', boxSizing: 'border-box' as const }}
+            style={{ width: '100%', padding: '12px 16px', background: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '10px', color: 'var(--text-primary)', fontSize: '14px', outline: 'none', boxSizing: 'border-box' as const }}
           />
         </div>
 
@@ -71,21 +71,21 @@ export default function DirectoryPage() {
         {loading ? (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} style={{ borderRadius: '12px', background: '#141619', border: '1px solid #252830', height: '280px' }} />
+              <div key={i} style={{ borderRadius: '12px', background: 'var(--bg-card)', border: '1px solid var(--border-color)', height: '280px' }} />
             ))}
           </div>
         ) : filtered.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '80px 20px', borderRadius: '12px', background: '#141619', border: '1px solid #252830' }}>
-            <p style={{ color: '#7A7D85', fontSize: '16px', margin: '0 0 8px' }}>No businesses found.</p>
-            <p style={{ color: '#5C6070', fontSize: '13px', margin: 0 }}>Be the first to list your business.</p>
+          <div style={{ textAlign: 'center', padding: '80px 20px', borderRadius: '12px', background: 'var(--bg-card)', border: '1px solid var(--border-color)' }}>
+            <p style={{ color: 'var(--text-subtle)', fontSize: '16px', margin: '0 0 8px' }}>No businesses found.</p>
+            <p style={{ color: 'var(--text-faint)', fontSize: '13px', margin: 0 }}>Be the first to list your business.</p>
           </div>
         ) : (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
             {filtered.map((biz) => (
-              <div key={biz.id} className='btv-card' style={{ borderRadius: '12px', overflow: 'hidden', background: '#141619', border: '1px solid ' + (biz.featured ? 'rgba(212,168,50,0.4)' : '#252830') }}>
+              <div key={biz.id} className='btv-card' style={{ borderRadius: '12px', overflow: 'hidden', background: 'var(--bg-card)', border: '1px solid ' + (biz.featured ? 'rgba(212,168,50,0.4)' : 'var(--border-color)') }}>
                 
                 {/* Cover */}
-                <div style={{ height: '140px', background: '#1C1E23', position: 'relative', overflow: 'hidden' }}>
+                <div style={{ height: '140px', background: 'var(--bg-card-hover)', position: 'relative', overflow: 'hidden' }}>
                   {biz.coverImage ? (
                     <img src={biz.coverImage} alt={biz.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   ) : (
@@ -97,7 +97,7 @@ export default function DirectoryPage() {
                   
                   {/* Badges */}
                   <div style={{ position: 'absolute', top: '8px', left: '8px', display: 'flex', gap: '4px' }}>
-                    <span style={{ background: '#D4A832', color: '#08090B', fontSize: '10px', fontWeight: '700', padding: '2px 8px', borderRadius: '999px' }}>
+                    <span style={{ background: 'var(--accent-gold)', color: '#08090B', fontSize: '10px', fontWeight: '700', padding: '2px 8px', borderRadius: '999px' }}>
                       {CATEGORY_LABELS[biz.category]}
                     </span>
                     {biz.verified && (
@@ -118,17 +118,17 @@ export default function DirectoryPage() {
 
                 {/* Content */}
                 <div style={{ padding: '14px' }}>
-                  <h3 style={{ color: '#EDEEF0', fontSize: '16px', fontWeight: '600', margin: '0 0 4px', fontFamily: 'Georgia, serif' }}>{biz.name}</h3>
+                  <h3 style={{ color: 'var(--text-primary)', fontSize: '16px', fontWeight: '600', margin: '0 0 4px', fontFamily: 'Georgia, serif' }}>{biz.name}</h3>
                   
                   {(biz.city || biz.state) && (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#7A7D85', fontSize: '12px', marginBottom: '8px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--text-subtle)', fontSize: '12px', marginBottom: '8px' }}>
                       <MapPin size={11} />
                       {[biz.city, biz.state].filter(Boolean).join(', ')}
                     </div>
                   )}
 
                   {biz.description && (
-                    <p style={{ color: '#7A7D85', fontSize: '13px', lineHeight: 1.5, margin: '0 0 12px', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as any, overflow: 'hidden' }}>
+                    <p style={{ color: 'var(--text-subtle)', fontSize: '13px', lineHeight: 1.5, margin: '0 0 12px', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as any, overflow: 'hidden' }}>
                       {biz.description}
                     </p>
                   )}
@@ -141,17 +141,17 @@ export default function DirectoryPage() {
                       </a>
                     )}
                     {biz.phone && (
-                      <a href={'tel:' + biz.phone} style={{ display: 'flex', alignItems: 'center', gap: '4px', background: '#1C1E23', color: '#EDEEF0', fontSize: '11px', fontWeight: '600', padding: '6px 10px', borderRadius: '8px', textDecoration: 'none', border: '1px solid #252830' }}>
+                      <a href={'tel:' + biz.phone} style={{ display: 'flex', alignItems: 'center', gap: '4px', background: 'var(--bg-card-hover)', color: 'var(--text-primary)', fontSize: '11px', fontWeight: '600', padding: '6px 10px', borderRadius: '8px', textDecoration: 'none', border: '1px solid var(--border-color)' }}>
                         <Phone size={12} /> Call
                       </a>
                     )}
                     {biz.email && (
-                      <a href={'mailto:' + biz.email} style={{ display: 'flex', alignItems: 'center', gap: '4px', background: '#1C1E23', color: '#EDEEF0', fontSize: '11px', fontWeight: '600', padding: '6px 10px', borderRadius: '8px', textDecoration: 'none', border: '1px solid #252830' }}>
+                      <a href={'mailto:' + biz.email} style={{ display: 'flex', alignItems: 'center', gap: '4px', background: 'var(--bg-card-hover)', color: 'var(--text-primary)', fontSize: '11px', fontWeight: '600', padding: '6px 10px', borderRadius: '8px', textDecoration: 'none', border: '1px solid var(--border-color)' }}>
                         <Mail size={12} /> Email
                       </a>
                     )}
                     {biz.website && (
-                      <a href={biz.website} target='_blank' style={{ display: 'flex', alignItems: 'center', gap: '4px', background: '#1C1E23', color: '#D4A832', fontSize: '11px', fontWeight: '600', padding: '6px 10px', borderRadius: '8px', textDecoration: 'none', border: '1px solid rgba(212,168,50,0.3)' }}>
+                      <a href={biz.website} target='_blank' style={{ display: 'flex', alignItems: 'center', gap: '4px', background: 'var(--bg-card-hover)', color: 'var(--accent-gold)', fontSize: '11px', fontWeight: '600', padding: '6px 10px', borderRadius: '8px', textDecoration: 'none', border: '1px solid rgba(212,168,50,0.3)' }}>
                         <Globe size={12} /> Website
                       </a>
                     )}
@@ -165,9 +165,9 @@ export default function DirectoryPage() {
         {/* List your business CTA */}
         <div style={{ marginTop: '48px', padding: '32px', borderRadius: '12px', background: 'linear-gradient(135deg, #0D0F12, #141619)', border: '1px solid rgba(212,168,50,0.2)', textAlign: 'center' }}>
           <p style={{ fontSize: '24px', margin: '0 0 8px' }}>🏪</p>
-          <h3 style={{ color: '#EDEEF0', fontSize: '20px', fontFamily: 'Georgia, serif', margin: '0 0 8px' }}>List Your Business</h3>
-          <p style={{ color: '#7A7D85', fontSize: '14px', margin: '0 0 20px' }}>Get discovered by thousands of BTV LIVE viewers across AP and Telangana.</p>
-          <a href='/apply' style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#D4A832', color: '#08090B', fontWeight: '600', fontSize: '14px', padding: '12px 24px', borderRadius: '999px', textDecoration: 'none' }}>
+          <h3 style={{ color: 'var(--text-primary)', fontSize: '20px', fontFamily: 'Georgia, serif', margin: '0 0 8px' }}>List Your Business</h3>
+          <p style={{ color: 'var(--text-subtle)', fontSize: '14px', margin: '0 0 20px' }}>Get discovered by thousands of BTV LIVE viewers across AP and Telangana.</p>
+          <a href='/apply' style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'var(--accent-gold)', color: '#08090B', fontWeight: '600', fontSize: '14px', padding: '12px 24px', borderRadius: '999px', textDecoration: 'none' }}>
             Submit Your Business
           </a>
         </div>
