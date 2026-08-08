@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { LayoutDashboard, Video, FileText, Calendar, Users, Newspaper, Sun, Briefcase, Building2, Settings, UserCircle, Shield } from 'lucide-react';
+import { LayoutDashboard, Video, FileText, Calendar, Users, Newspaper, Sun, Briefcase, Building2, Settings, UserCircle, Shield, CheckSquare } from 'lucide-react';
 
 const ALL_NAV_ITEMS = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard, roles: ['SUPER_ADMIN', 'MANAGER', 'REPORTER', 'EXECUTIVE'] },
@@ -15,6 +15,7 @@ const ALL_NAV_ITEMS = [
   { href: '/admin/directory', label: 'Directory', icon: Building2, roles: ['SUPER_ADMIN', 'MANAGER', 'EXECUTIVE'] },
   { href: '/admin/events', label: 'Events', icon: Calendar, roles: ['SUPER_ADMIN', 'MANAGER', 'EXECUTIVE'] },
   { href: '/admin/submissions', label: 'Submissions', icon: FileText, roles: ['SUPER_ADMIN', 'MANAGER'] },
+  { href: '/admin/approvals', label: 'Approvals', icon: CheckSquare, roles: ['SUPER_ADMIN', 'MANAGER'] },
   { href: '/admin/users', label: 'Users', icon: Shield, roles: ['SUPER_ADMIN', 'MANAGER'] },
   { href: '/admin/team', label: 'Team', icon: Users, roles: ['SUPER_ADMIN'] },
   { href: '/admin/about-team', label: 'About Team', icon: UserCircle, roles: ['SUPER_ADMIN'] },

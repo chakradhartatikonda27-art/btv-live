@@ -16,6 +16,7 @@ enum Role {
 
 enum InterviewStatus {
   DRAFT
+  PENDING
   PUBLISHED
   ARCHIVED
 }
@@ -103,6 +104,8 @@ model Interview {
   featured       Boolean         @default(false)
   status         InterviewStatus @default(DRAFT)
   publishedAt    DateTime?
+  rejectedReason String?
+  submittedById  String?
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
   categoryId     String
@@ -281,6 +284,9 @@ model MorningDigest {
   date        DateTime @unique
   bulletins   String[] 
   published   Boolean  @default(false)
+  pending     Boolean  @default(false)
+  rejectedReason String?
+  submittedById  String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -289,6 +295,7 @@ model MorningDigest {
 
 enum ArticleStatus {
   DRAFT
+  PENDING
   PUBLISHED
   ARCHIVED
 }
@@ -314,6 +321,8 @@ model Article {
   content     String          @db.Text
   coverImage  String?
   status      ArticleStatus   @default(DRAFT)
+  rejectedReason String?
+  submittedById  String?
   category    ArticleCategory @default(BUSINESS)
   tags        String[]
   readTime    Int?
