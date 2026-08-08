@@ -55,6 +55,25 @@ async function getCategories() {
   });
 }
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'BTV LIVE',
+  url: 'https://www.btvlive.net',
+  logo: 'https://www.btvlive.net/btv-logo.jpg',
+  description: "India's premier business and lifestyle media platform",
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: '+91-9885126368',
+    email: 'btvliveindia@gmail.com',
+    contactType: 'customer service',
+  },
+  sameAs: [
+    'https://www.youtube.com/@Btvlive-b2b',
+    'https://www.instagram.com/reel/DbGnjyWk0HY/',
+  ],
+};
+
 export default async function HomePage() {
   const [featuredInterview, stories, events, stats, categories, morningDigest] =
     await Promise.all([
@@ -67,6 +86,7 @@ export default async function HomePage() {
     ]);
 
   return (
+    <>
     <main className="min-h-screen" style={{ background: "#08090B" }}>
       <HeroBanner interview={featuredInterview} />
 
@@ -121,5 +141,6 @@ export default async function HomePage() {
 
       <NewsletterBar />
     </main>
+    </>
   );
 }

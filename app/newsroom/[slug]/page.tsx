@@ -1,4 +1,24 @@
 import { prisma } from '@/lib/prisma';
+import type { Metadata } from 'next';
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const article = await prisma.article.findUnique({ where: { slug } }).catch(() => null);
+  
+  if (!article) return { title: 'Article | BTV LIVE' };
+  
+  return {
+    title: `${article.title} | BTV LIVE`,
+    description: article.summary || article.content?.substring(0, 160),
+    openGraph: {
+      title: article.title,
+      description: article.summary || '',
+      images: article.coverImage ? [{ url: article.coverImage }] : [],
+      type: 'article',
+    },
+    alternates: { canonical: `https://www.btvlive.net/newsroom/${slug}` },
+  };
+}
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 

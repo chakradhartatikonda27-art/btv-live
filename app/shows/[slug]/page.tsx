@@ -1,4 +1,32 @@
 import { prisma } from '@/lib/prisma';
+import type { Metadata } from 'next';
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const interview = await prisma.interview.findUnique({
+    where: { slug },
+    include: { guest: true, category: true },
+  }).catch(() => null);
+  
+  if (!interview) return { title: 'Interview | BTV LIVE' };
+  
+  return {
+    title: `${interview.title} | BTV LIVE`,
+    description: interview.summary || `Watch ${interview.guest?.fullName} on BTV LIVE. ${interview.guest?.headline || ''}`,
+    openGraph: {
+      title: interview.title,
+      description: interview.summary || `Watch ${interview.guest?.fullName} on BTV LIVE`,
+      images: interview.thumbnailUrl ? [{ url: interview.thumbnailUrl }] : [],
+      type: 'video.episode',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: interview.title,
+      images: interview.thumbnailUrl ? [interview.thumbnailUrl] : [],
+    },
+    alternates: { canonical: `https://www.btvlive.net/shows/${slug}` },
+  };
+}
 import { notFound } from 'next/navigation';
 import InterviewCard from '@/components/interviews/InterviewCard';
 
