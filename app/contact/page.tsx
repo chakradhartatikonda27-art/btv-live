@@ -57,14 +57,14 @@ export default function ContactPage() {
                   <span style={{ fontSize: '20px', flexShrink: 0 }}>📞</span>
                   <div>
                     <p style={{ color: 'var(--text-muted)', fontSize: '12px', margin: '0 0 4px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Phone</p>
-                    <a href='tel:+919885126368' style={{ color: 'var(--accent-gold)', fontSize: '14px', textDecoration: 'none', fontWeight: '500' }}>+91-9885126368</a>
+                    <a href='tel:+917095616062' style={{ color: 'var(--accent-gold)', fontSize: '14px', textDecoration: 'none', fontWeight: '500' }}>+91-7095616062</a>
                   </div>
                 </div>
                 <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
                   <span style={{ fontSize: '20px', flexShrink: 0 }}>💬</span>
                   <div>
                     <p style={{ color: 'var(--text-muted)', fontSize: '12px', margin: '0 0 4px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>WhatsApp</p>
-                    <a href='https://wa.me/919885126368' target='_blank' rel='noopener noreferrer' style={{ color: '#25D366', fontSize: '14px', textDecoration: 'none', fontWeight: '500' }}>Chat on WhatsApp</a>
+                    <a href='https://wa.me/917095616062' target='_blank' rel='noopener noreferrer' style={{ color: '#25D366', fontSize: '14px', textDecoration: 'none', fontWeight: '500' }}>Chat on WhatsApp</a>
                   </div>
                 </div>
               </div>
