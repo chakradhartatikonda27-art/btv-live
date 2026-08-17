@@ -2,7 +2,7 @@ import { prisma } from '@/lib/prisma';
 
 export default async function AdminSubmissionsPage() {
   const submissions = await prisma.submission.findMany({
-    orderBy: { createdAt: 'desc' },
+    orderBy: { submittedAt: 'desc' },
   });
 
   const pending = submissions.filter((s) => s.status === 'PENDING');
