@@ -1,3 +1,4 @@
+import { prisma } from '@/lib/prisma';
 import Link from "next/link";
 import Image from "next/image";
 
@@ -21,10 +22,11 @@ const FOOTER_LINKS = {
   ],
 };
 
-export default function Footer() {
-  const email = 'btvliveindia@gmail.com';
-  const phone = '+91-9885126368';
-  const tagline = 'Where Success Goes Live... Legacy Lives Forever.';
+export default async function Footer() {
+  const settings = await prisma.siteSettings.findFirst().catch(() => null);
+  const email = settings?.contactEmail || 'btvliveindia@gmail.com';
+  const phone = settings?.contactPhone || '+91-7095616062';
+  const tagline = settings?.footerTagline || 'Where Success Goes Live... Legacy Lives Forever.';
   return (
     <footer style={{ background: 'var(--bg-secondary)', borderTop: '1px solid var(--border-color)' }}>
       {/* Gold top line */}
