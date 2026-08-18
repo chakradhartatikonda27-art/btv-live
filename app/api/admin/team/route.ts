@@ -50,3 +50,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
 }
+
+export async function PATCH(req: NextRequest) {
+  try {
+    const { id, ...data } = await req.json();
+    const member = await prisma.teamMember.update({ where: { id }, data });
+    return NextResponse.json(member);
+  } catch (err) {
+    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+  }
+}
