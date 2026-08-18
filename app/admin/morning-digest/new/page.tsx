@@ -27,6 +27,9 @@ export default function NewMorningDigestPage() {
     if (bulletins.length > 1) setBulletins((prev) => prev.filter((_, i) => i !== index));
   }
 
+  const role = typeof window !== 'undefined' ? localStorage.getItem('btv_admin_role') || 'CITY_REPORTER' : 'CITY_REPORTER';
+  const isReporter = ['CITY_REPORTER', 'CONSTITUENCY_REPORTER', 'REPORTER'].includes(role);
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
@@ -45,8 +48,9 @@ export default function NewMorningDigestPage() {
       body: JSON.stringify({
         title: form.title,
         date: new Date(form.date).toISOString(),
+        pending: isReporter,
         bulletins: validBulletins,
-        published: form.published,
+        published: isReporter ? false : form.published,
       }),
     });
 

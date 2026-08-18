@@ -71,6 +71,9 @@ export default function NewArticlePage() {
     setUploading(false);
   }
 
+  const role = typeof window !== 'undefined' ? localStorage.getItem('btv_admin_role') || 'CITY_REPORTER' : 'CITY_REPORTER';
+  const isReporter = ['CITY_REPORTER', 'CONSTITUENCY_REPORTER', 'REPORTER'].includes(role);
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);

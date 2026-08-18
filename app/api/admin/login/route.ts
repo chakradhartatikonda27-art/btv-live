@@ -6,49 +6,24 @@ export async function POST(req: NextRequest) {
   try {
     const { email, password } = await req.json();
 
-    // Check super admin first
+    // Super Admin
     if (email === 'admin@btvlive.net' && password === 'btv@admin2026') {
-      const res = NextResponse.json({ ok: true, role: 'SUPER_ADMIN', name: 'Super Admin' });
-      res.cookies.set('admin_token', 'super_admin', {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'none',
-        maxAge: 60 * 60 * 24 * 7,
-        path: '/',
-      });
+      const res = NextResponse.json({ ok: true, role: 'SUPER_ADMIN', name: 'Super Admin', id: 'super_admin' });
+      res.cookies.set('admin_token', 'super_admin', { httpOnly: true, secure: true, sameSite: 'none', maxAge: 60 * 60 * 24 * 7, path: '/' });
       return res;
     }
 
-    // Check regular admin users
+    // DB users
     const user = await prisma.adminUser.findUnique({ where: { email } });
-    if (!user || !user.active) {
-      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
-    }
+    if (!user || !user.active) return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
 
     const valid = await verifyPassword(password, user.password);
-    if (!valid) {
-      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
-    }
+    if (!valid) return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
 
-    // Update last login
-    await prisma.adminUser.update({
-      where: { id: user.id },
-      data: { lastLoginAt: new Date() },
-    });
+    await prisma.adminUser.update({ where: { id: user.id }, data: { lastLoginAt: new Date() } });
 
-    const res = NextResponse.json({ 
-      ok: true, 
-      role: user.role, 
-      name: user.name,
-      id: user.id,
-    });
-    res.cookies.set('admin_token', user.id, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'none',
-      maxAge: 60 * 60 * 24 * 7,
-      path: '/',
-    });
+    const res = NextResponse.json({ ok: true, role: user.role, name: user.name, id: user.id });
+    res.cookies.set('admin_token', user.id, { httpOnly: true, secure: true, sameSite: 'none', maxAge: 60 * 60 * 24 * 7, path: '/' });
     return res;
   } catch (err) {
     console.error(err);

@@ -34,9 +34,11 @@ export default function NewUserPage() {
 
   function update(field: string, value: string) { setForm(p => ({ ...p, [field]: value })); }
 
-  const availableRoles = currentRole === 'SUPER_ADMIN' 
-    ? ['MANAGER', 'REPORTER', 'EXECUTIVE']
-    : ['REPORTER', 'EXECUTIVE'];
+  const availableRoles = currentRole === 'SUPER_ADMIN'
+    ? ['STATE_MANAGER', 'DISTRICT_HEAD', 'CITY_REPORTER', 'CONSTITUENCY_REPORTER', 'EXECUTIVE']
+    : currentRole === 'STATE_MANAGER'
+    ? ['DISTRICT_HEAD', 'CITY_REPORTER', 'CONSTITUENCY_REPORTER', 'EXECUTIVE']
+    : ['CITY_REPORTER', 'CONSTITUENCY_REPORTER'];
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -75,9 +77,11 @@ export default function NewUserPage() {
               ))}
             </select>
             <p style={{ color: '#5C6070', fontSize: '11px', margin: '4px 0 0' }}>
-              {form.role === 'MANAGER' && 'Can manage Interviews, Newsroom, Opportunities, Directory, Events and add team members'}
-              {form.role === 'REPORTER' && 'Can add/edit Interviews, Newsroom articles and Morning Digest only'}
-              {form.role === 'EXECUTIVE' && 'Can manage Opportunities, Directory and Events only'}
+              {form.role === 'STATE_MANAGER' && 'Manages entire state. Approves District Head content. Full content access.'}
+              {form.role === 'DISTRICT_HEAD' && 'Manages district. Approves City/Constituency Reporters. All content access.'}
+              {form.role === 'CITY_REPORTER' && 'Covers city. Adds all content. Needs District Head approval to publish.'}
+              {form.role === 'CONSTITUENCY_REPORTER' && 'Covers constituency. Adds Interviews and Newsroom only. Needs District Head approval.'}
+              {form.role === 'EXECUTIVE' && 'Manages Opportunities, Directory and Events for their city.'}
             </p>
           </div>
 

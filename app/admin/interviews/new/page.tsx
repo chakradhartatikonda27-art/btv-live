@@ -8,8 +8,8 @@ const CATEGORY_LABELS: Record<string,string> = { BUSINESS_LEADERS:'Business Lead
 export default function NewInterviewPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const role = typeof window !== 'undefined' ? localStorage.getItem('btv_admin_role') || 'REPORTER' : 'REPORTER';
-  const isReporter = role === 'REPORTER';
+  const role = typeof window !== 'undefined' ? localStorage.getItem('btv_admin_role') || 'CITY_REPORTER' : 'CITY_REPORTER';
+  const isReporter = ['CITY_REPORTER', 'CONSTITUENCY_REPORTER', 'REPORTER'].includes(role);
   const [error, setError] = useState('');
   const [guests, setGuests] = useState<any[]>([]);
   const [form, setForm] = useState({
@@ -102,7 +102,7 @@ export default function NewInterviewPage() {
           {error && <p style={{ color: '#E0304F', fontSize: '13px', margin: 0 }}>{error}</p>}
           <div style={{ display: 'flex', gap: '12px' }}>
             <button type='submit' disabled={loading} style={{ flex: 1, padding: '12px', background: loading ? '#8C6510' : '#D4A832', color: '#08090B', border: 'none', borderRadius: '999px', fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}>
-              {loading ? 'Saving...' : isReporter ? 'Submit for Review' : 'Create Interview'}
+              {loading ? 'Saving...' : isReporter ? '📤 Submit for Review' : 'Create Interview'}
             </button>
             <a href='/admin/interviews' style={{ flex: 1, padding: '12px', background: 'transparent', color: '#9A9DA5', border: '1px solid #252830', borderRadius: '999px', fontSize: '14px', textAlign: 'center' as const, textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Cancel</a>
           </div>

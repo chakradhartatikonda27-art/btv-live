@@ -2,8 +2,16 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-const ROLE_COLORS: Record<string,string> = { SUPER_ADMIN: '#D4A832', MANAGER: '#3B82F6', REPORTER: '#22C55E', EXECUTIVE: '#8B5CF6' };
-const ROLE_LABELS: Record<string,string> = { SUPER_ADMIN: 'Super Admin', MANAGER: 'Manager', REPORTER: 'Reporter', EXECUTIVE: 'Executive' };
+const ROLE_COLORS: Record<string,string> = { 
+    SUPER_ADMIN: '#D4A832', STATE_MANAGER: '#3B82F6', DISTRICT_HEAD: '#F59E0B',
+    CITY_REPORTER: '#22C55E', CONSTITUENCY_REPORTER: '#10B981', EXECUTIVE: '#8B5CF6',
+    MANAGER: '#3B82F6', REPORTER: '#22C55E'
+  };
+const ROLE_LABELS: Record<string,string> = { 
+    SUPER_ADMIN: 'Super Admin', STATE_MANAGER: 'State Manager', DISTRICT_HEAD: 'District Head',
+    CITY_REPORTER: 'City Reporter', CONSTITUENCY_REPORTER: 'Constituency Reporter', EXECUTIVE: 'Executive',
+    MANAGER: 'Manager', REPORTER: 'Reporter'
+  };
 
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<any[]>([]);
@@ -34,9 +42,11 @@ export default function AdminUsersPage() {
   }
 
   // Manager can only see reporters and executives
-  const visibleRoles = currentRole === 'SUPER_ADMIN' 
-    ? ['MANAGER', 'REPORTER', 'EXECUTIVE']
-    : ['REPORTER', 'EXECUTIVE'];
+  const visibleRoles = currentRole === 'SUPER_ADMIN'
+    ? ['STATE_MANAGER', 'DISTRICT_HEAD', 'CITY_REPORTER', 'CONSTITUENCY_REPORTER', 'EXECUTIVE', 'MANAGER', 'REPORTER']
+    : currentRole === 'STATE_MANAGER'
+    ? ['DISTRICT_HEAD', 'CITY_REPORTER', 'CONSTITUENCY_REPORTER', 'EXECUTIVE']
+    : ['CITY_REPORTER', 'CONSTITUENCY_REPORTER'];
 
   const filteredUsers = users.filter(u => visibleRoles.includes(u.role));
 

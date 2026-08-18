@@ -460,6 +460,10 @@ enum AdminRole {
   SUPER_ADMIN
   MANAGER
   REPORTER
+  STATE_MANAGER
+  DISTRICT_HEAD
+  CITY_REPORTER
+  CONSTITUENCY_REPORTER
   EXECUTIVE
 }
 
@@ -468,7 +472,7 @@ model AdminUser {
   name         String
   email        String    @unique
   password     String
-  role         AdminRole @default(REPORTER)
+  role         AdminRole @default(CITY_REPORTER)
   active       Boolean   @default(true)
   
   // Location assignment

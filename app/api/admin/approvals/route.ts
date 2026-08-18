@@ -1,7 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
-export async function GET() {
+// Approval chain:
+// CITY_REPORTER / CONSTITUENCY_REPORTER → DISTRICT_HEAD approves
+// DISTRICT_HEAD → STATE_MANAGER approves  
+// STATE_MANAGER → SUPER_ADMIN approves
+// SUPER_ADMIN → publishes instantly
+
+export async function GET(req: NextRequest) {
+  const role = req.headers.get('x-admin-role') || 'SUPER_ADMIN';
+  
   const [interviews, articles, digests] = await Promise.all([
     prisma.interview.findMany({
       where: { status: 'PENDING' },

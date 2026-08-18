@@ -79,16 +79,24 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   const ROLE_COLORS: Record<string, string> = {
     SUPER_ADMIN: '#D4A832',
+    STATE_MANAGER: '#3B82F6',
+    DISTRICT_HEAD: '#F59E0B',
+    CITY_REPORTER: '#22C55E',
+    CONSTITUENCY_REPORTER: '#10B981',
+    EXECUTIVE: '#8B5CF6',
     MANAGER: '#3B82F6',
     REPORTER: '#22C55E',
-    EXECUTIVE: '#8B5CF6',
   };
 
   const ROLE_LABELS: Record<string, string> = {
     SUPER_ADMIN: 'Super Admin',
+    STATE_MANAGER: 'State Manager',
+    DISTRICT_HEAD: 'District Head',
+    CITY_REPORTER: 'City Reporter',
+    CONSTITUENCY_REPORTER: 'Constituency Reporter',
+    EXECUTIVE: 'Executive',
     MANAGER: 'Manager',
     REPORTER: 'Reporter',
-    EXECUTIVE: 'Executive',
   };
 
   return (
