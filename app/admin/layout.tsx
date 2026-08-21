@@ -16,7 +16,7 @@ const ALL_NAV_ITEMS = [
   { href: '/admin/events', label: 'Events', icon: Calendar, roles: ['SUPER_ADMIN', 'STATE_MANAGER', 'DISTRICT_HEAD', 'CITY_REPORTER', 'EXECUTIVE', 'MANAGER'] },
   { href: '/admin/submissions', label: 'Submissions', icon: FileText, roles: ['SUPER_ADMIN', 'STATE_MANAGER', 'MANAGER'] },
   { href: '/admin/approvals', label: 'Approvals', icon: CheckSquare, roles: ['SUPER_ADMIN', 'STATE_MANAGER', 'DISTRICT_HEAD', 'MANAGER'] },
-  { href: '/admin/users', label: 'Users', icon: Shield, roles: ['SUPER_ADMIN', 'STATE_MANAGER', 'MANAGER'] },
+  { href: '/admin/users', label: 'Users', icon: Shield, roles: ['SUPER_ADMIN', 'STATE_MANAGER', 'DISTRICT_HEAD', 'MANAGER'] },
   { href: '/admin/team', label: 'Team', icon: Users, roles: ['SUPER_ADMIN'] },
   { href: '/admin/about-team', label: 'About Team', icon: UserCircle, roles: ['SUPER_ADMIN'] },
   { href: '/admin/settings', label: 'Settings', icon: Settings, roles: ['SUPER_ADMIN'] },
