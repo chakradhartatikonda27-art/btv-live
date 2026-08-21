@@ -7,19 +7,19 @@ import Image from 'next/image';
 import { LayoutDashboard, Video, FileText, Calendar, Users, Newspaper, Sun, Briefcase, Building2, Settings, UserCircle, Shield, CheckSquare } from 'lucide-react';
 
 const ALL_NAV_ITEMS = [
-  { href: '/admin', label: 'Dashboard', icon: LayoutDashboard, roles: ['SUPER_ADMIN', 'MANAGER', 'REPORTER', 'EXECUTIVE'] },
-  { href: '/admin/interviews', label: 'Interviews', icon: Video, roles: ['SUPER_ADMIN', 'MANAGER', 'REPORTER'] },
-  { href: '/admin/articles', label: 'Newsroom', icon: Newspaper, roles: ['SUPER_ADMIN', 'MANAGER', 'REPORTER'] },
-  { href: '/admin/morning-digest', label: 'Morning Digest', icon: Sun, roles: ['SUPER_ADMIN', 'MANAGER', 'REPORTER'] },
-  { href: '/admin/opportunities', label: 'Opportunities', icon: Briefcase, roles: ['SUPER_ADMIN', 'MANAGER', 'EXECUTIVE'] },
-  { href: '/admin/directory', label: 'Directory', icon: Building2, roles: ['SUPER_ADMIN', 'MANAGER', 'EXECUTIVE'] },
-  { href: '/admin/events', label: 'Events', icon: Calendar, roles: ['SUPER_ADMIN', 'MANAGER', 'EXECUTIVE'] },
-  { href: '/admin/submissions', label: 'Submissions', icon: FileText, roles: ['SUPER_ADMIN', 'MANAGER'] },
-  { href: '/admin/approvals', label: 'Approvals', icon: CheckSquare, roles: ['SUPER_ADMIN', 'MANAGER'] },
-  { href: '/admin/users', label: 'Users', icon: Shield, roles: ['SUPER_ADMIN', 'MANAGER'] },
+  { href: '/admin', label: 'Dashboard', icon: LayoutDashboard, roles: ['SUPER_ADMIN', 'STATE_MANAGER', 'DISTRICT_HEAD', 'CITY_REPORTER', 'CONSTITUENCY_REPORTER', 'EXECUTIVE', 'MANAGER', 'REPORTER'] },
+  { href: '/admin/interviews', label: 'Interviews', icon: Video, roles: ['SUPER_ADMIN', 'STATE_MANAGER', 'DISTRICT_HEAD', 'CITY_REPORTER', 'CONSTITUENCY_REPORTER', 'MANAGER', 'REPORTER'] },
+  { href: '/admin/articles', label: 'Newsroom', icon: Newspaper, roles: ['SUPER_ADMIN', 'STATE_MANAGER', 'DISTRICT_HEAD', 'CITY_REPORTER', 'CONSTITUENCY_REPORTER', 'MANAGER', 'REPORTER'] },
+  { href: '/admin/morning-digest', label: 'Morning Digest', icon: Sun, roles: ['SUPER_ADMIN', 'STATE_MANAGER', 'DISTRICT_HEAD', 'CITY_REPORTER', 'MANAGER', 'REPORTER'] },
+  { href: '/admin/opportunities', label: 'Opportunities', icon: Briefcase, roles: ['SUPER_ADMIN', 'STATE_MANAGER', 'DISTRICT_HEAD', 'CITY_REPORTER', 'EXECUTIVE', 'MANAGER'] },
+  { href: '/admin/directory', label: 'Directory', icon: Building2, roles: ['SUPER_ADMIN', 'STATE_MANAGER', 'DISTRICT_HEAD', 'CITY_REPORTER', 'EXECUTIVE', 'MANAGER'] },
+  { href: '/admin/events', label: 'Events', icon: Calendar, roles: ['SUPER_ADMIN', 'STATE_MANAGER', 'DISTRICT_HEAD', 'CITY_REPORTER', 'EXECUTIVE', 'MANAGER'] },
+  { href: '/admin/submissions', label: 'Submissions', icon: FileText, roles: ['SUPER_ADMIN', 'STATE_MANAGER', 'MANAGER'] },
+  { href: '/admin/approvals', label: 'Approvals', icon: CheckSquare, roles: ['SUPER_ADMIN', 'STATE_MANAGER', 'DISTRICT_HEAD', 'MANAGER'] },
+  { href: '/admin/users', label: 'Users', icon: Shield, roles: ['SUPER_ADMIN', 'STATE_MANAGER', 'MANAGER'] },
   { href: '/admin/team', label: 'Team', icon: Users, roles: ['SUPER_ADMIN'] },
   { href: '/admin/about-team', label: 'About Team', icon: UserCircle, roles: ['SUPER_ADMIN'] },
-  { href: '/admin/settings', label: 'Settings', icon: Settings, roles: ['SUPER_ADMIN', 'MANAGER'] },
+  { href: '/admin/settings', label: 'Settings', icon: Settings, roles: ['SUPER_ADMIN', 'STATE_MANAGER', 'MANAGER'] },
 ];
 
 function PublishButton() {
